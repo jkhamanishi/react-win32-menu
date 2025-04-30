@@ -1,6 +1,10 @@
 
 export interface MenuItemProps {
   label: string;
+  primary?: boolean;
+  backgroundColor?: string;
+  onClick?: () => void;
+  size?: "small" | "large";
 }
 
 export function MenuItem({label}: MenuItemProps) {
