@@ -1,0 +1,26 @@
+{
+  "name": "react-win32-menu",
+  "version": "1.0.0",
+  "description": "React components mimicking Win32 desktop menus",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkhamanishi/react-win32-menu.git"
+  },
+  "keywords": [
+    "react",
+    "win32",
+    "menu",
+    "hotkey",
+    "desktop"
+  ],
+  "author": "Jackson Hamanishi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jkhamanishi/react-win32-menu/issues"
+  },
+  "homepage": "https://github.com/jkhamanishi/react-win32-menu#readme"
+}
