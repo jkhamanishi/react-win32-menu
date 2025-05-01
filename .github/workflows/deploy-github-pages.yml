@@ -33,4 +33,4 @@ jobs:
           checkout: false
           install_command: npm ci
           build_command: npm run build-storybook
-          path: storybook-static
+          path: ./dist/storybook

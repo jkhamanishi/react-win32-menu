@@ -13,7 +13,7 @@
     "build": "tsc -b && vite build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build -o dist/storybook"
   },
   "sideEffects": false,
   "main": "./dist/index.js",
