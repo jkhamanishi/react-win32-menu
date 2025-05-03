@@ -1,13 +1,12 @@
 {
   "name": "react-win32-menu",
-  "version": "1.0.0",
-  "description": "React components mimicking Win32 desktop menus",
+  "version": "0.1.0",
+  "description": "React components resembling Win32 desktop menus",
+  "license": "MIT",
   "author": {
     "name": "Jackson Hamanishi",
     "email": "jkhamanishi@gmail.com"
   },
-  "license": "MIT",
-  "type": "module",
   "scripts": {
     "dev": "npm run storybook",
     "build": "tsc -b && vite build",
@@ -15,6 +14,7 @@
     "storybook": "storybook dev -p 6006 --ci",
     "build-storybook": "storybook build -o dist/storybook"
   },
+  "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
