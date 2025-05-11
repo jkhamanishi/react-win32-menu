@@ -1,0 +1,53 @@
+import { createElement, ReactNode, RefObject, useMemo } from 'react';
+import createContext from './createContext';
+
+import useActiveMenuState from '../hooks/useActiveMenuState';
+import useHotKeys, { EventCallback } from '../hooks/useHotKeys';
+import useKeyboardNavigation from '../hooks/useKeyboardNavigation';
+
+
+export interface MenuBarConfig {
+  onSelect?: (menuId: string) => void
+  expandIcon: string | ReactNode;
+  checkedIcon: string | ReactNode;
+  hotKeysEnabled: boolean;
+  disabled: boolean;
+}
+
+interface IMenuBarContext extends MenuBarConfig {
+  active: boolean;
+  activate: () => void;
+  deactivate: () => void;
+  registerHotKey: (hotKey: string[], callback: EventCallback) => void;
+  unregisterHotKey: (hotKey: string[]) => void;
+}
+
+const [ContextProvider, useContext] = createContext<IMenuBarContext>("MenuBarContext");
+
+
+interface MenuBarContextProviderProps {
+  containerRef: RefObject<HTMLElement>;
+  config: MenuBarConfig;
+  children: ReactNode
+}
+
+export function MenuBarContextProvider({containerRef, config, children}: MenuBarContextProviderProps) {
+  const activeState = useActiveMenuState(containerRef);
+  
+  const enableHotKeys = (config.hotKeysEnabled && !config.disabled);
+  const hotkeys = useHotKeys(enableHotKeys);
+  
+  useKeyboardNavigation(containerRef, config.disabled);
+  
+  const value = useMemo<IMenuBarContext>(() => ({
+    ...activeState,
+    ...hotkeys,
+    ...config,
+  }), [activeState, hotkeys, config]);
+  
+  return createElement(ContextProvider, { value }, children);
+}
+
+export function useMenuBarContext() {
+  return useContext();
+}
