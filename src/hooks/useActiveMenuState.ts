@@ -1,7 +1,7 @@
 import { RefObject } from "react";
 import { useBoolean, useEventListener, useOnClickOutside } from "usehooks-ts";
 
-interface ActiveMenuState {
+export interface ActiveMenuState {
   active: boolean;
   activate: () => void;
   deactivate: () => void;

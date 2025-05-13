@@ -1,8 +1,8 @@
 import { createElement, ReactNode, RefObject, useMemo } from 'react';
 import createContext from './createContext';
 
-import useActiveMenuState from '../hooks/useActiveMenuState';
-import useHotKeys, { EventCallback } from '../hooks/useHotKeys';
+import useActiveMenuState, { ActiveMenuState } from '../hooks/useActiveMenuState';
+import useHotKeys, { HotKeyRegistration } from '../hooks/useHotKeys';
 import useKeyboardNavigation from '../hooks/useKeyboardNavigation';
 
 
@@ -14,13 +14,7 @@ export interface MenuBarConfig {
   disabled: boolean;
 }
 
-interface IMenuBarContext extends MenuBarConfig {
-  active: boolean;
-  activate: () => void;
-  deactivate: () => void;
-  registerHotKey: (hotKey: string[], callback: EventCallback) => void;
-  unregisterHotKey: (hotKey: string[]) => void;
-}
+interface IMenuBarContext extends MenuBarConfig, ActiveMenuState, HotKeyRegistration {};
 
 const [ContextProvider, useContext] = createContext<IMenuBarContext>("MenuBarContext");
 
