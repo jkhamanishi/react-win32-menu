@@ -1,13 +1,13 @@
 import { useCallback, useState } from "react";
 import { useEventListener } from "usehooks-ts";
-import { keyWithModifiers, normalizeKey } from "../utils/hotKeys";
+import { HotKey, keyWithModifiers, normalizeKey } from "../utils/hotKeys";
 
 
 export type EventCallback = (e?: Event) => void;
 
 export interface HotKeyRegistration {
-  registerHotKey: (hotKey: string[], callback: EventCallback) => void;
-  unregisterHotKey: (hotKey: string[]) => void;
+  registerHotKey: (hotKey: HotKey, callback: EventCallback) => void;
+  unregisterHotKey: (hotKey: HotKey) => void;
 }
 
 export default function useHotKeys(enabled=true): HotKeyRegistration {
@@ -30,7 +30,7 @@ export default function useHotKeys(enabled=true): HotKeyRegistration {
   
   useEventListener('keydown', hotKeyHandler);
   
-  const registerHotKey = useCallback((hotkey: Array<string>, callback: EventCallback): void => {
+  const registerHotKey = useCallback((hotkey: HotKey, callback: EventCallback): void => {
     const key = normalizeKey(hotkey);
     if (key) {
       if (callbacks[key]) {
@@ -40,7 +40,7 @@ export default function useHotKeys(enabled=true): HotKeyRegistration {
     }
   }, [callbacks]);
   
-  const unregisterHotKey = useCallback((hotkey: Array<string>): void => {
+  const unregisterHotKey = useCallback((hotkey: HotKey): void => {
     const key = normalizeKey(hotkey);
     if (key) {
       delete callbacks[key];
