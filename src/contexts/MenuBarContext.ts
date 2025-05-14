@@ -2,7 +2,7 @@ import { createElement, ReactNode, RefObject, useMemo } from 'react';
 import createContext from './createContext';
 
 import useActiveMenuState, { ActiveMenuState } from '../hooks/useActiveMenuState';
-import useHotKeys, { HotKeyRegistration } from '../hooks/useHotKeys';
+import useHotKeyRegistration, { HotKeyRegistration } from '../hooks/useHotKeyRegistration';
 import useKeyboardNavigation from '../hooks/useKeyboardNavigation';
 
 
@@ -29,7 +29,7 @@ export function MenuBarContextProvider({containerRef, config, children}: MenuBar
   const activeState = useActiveMenuState(containerRef);
   
   const enableHotKeys = (config.hotKeysEnabled && !config.disabled);
-  const hotkeys = useHotKeys(enableHotKeys);
+  const hotkeys = useHotKeyRegistration(enableHotKeys);
   
   useKeyboardNavigation(containerRef, config.disabled);
   

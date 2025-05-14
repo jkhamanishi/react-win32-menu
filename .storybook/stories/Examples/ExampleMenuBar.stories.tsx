@@ -16,6 +16,15 @@ export function Example() {
           <MenuItem label="label" />
         </SubMenu>
       </RootMenu>
+      <RootMenu label="label">
+        <MenuItem label="label" />
+        <MenuItem label="label" />
+        <SubMenu label="label">
+          <MenuItem label="label" />
+          <MenuItem label="label" />
+          <MenuItem label="label" />
+        </SubMenu>
+      </RootMenu>
     </Win32MenuBar>
   );
 }

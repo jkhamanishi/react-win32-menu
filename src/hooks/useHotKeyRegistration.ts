@@ -10,7 +10,7 @@ export interface HotKeyRegistration {
   unregisterHotKey: (hotKey: HotKey) => void;
 }
 
-export default function useHotKeys(enabled=true): HotKeyRegistration {
+export default function useHotKeyRegistration(enabled=true): HotKeyRegistration {
   const [callbacks] = useState<Record<string, EventCallback>>({});
   
   const hotKeyHandler = useCallback((keyboardEvent: KeyboardEvent): void => {
