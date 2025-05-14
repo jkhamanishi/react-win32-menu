@@ -1,64 +1,77 @@
+import { ARIARoleDefinitionKey as Role } from 'aria-query';
+
 type ElementOrNull = Element | null;
 
-export const firstChild = (element: ElementOrNull, withClass?: string, excludeClass?: string): ElementOrNull => findMatchingChild(element, false, withClass, excludeClass);
-export const lastChild = (element: ElementOrNull, withClass?: string, excludeClass?: string): ElementOrNull => findMatchingChild(element, true, withClass, excludeClass);
 
-const findMatchingChild = (element: ElementOrNull, reverse: boolean, withClass?: string, excludeClass?: string): ElementOrNull => {
-    if (!element) {
-        return null;
+export const firstChild = (element: ElementOrNull, withRole: Role, excludeDisabled=true): ElementOrNull => {
+  return findMatchingChild(element, 1, withRole, excludeDisabled)
+};
+export const lastChild = (element: ElementOrNull, withRole: Role, excludeDisabled=true): ElementOrNull => {
+  return findMatchingChild(element, -1, withRole, excludeDisabled)
+};
+const findMatchingChild = (element: ElementOrNull, searchDirection: -1 | 1, withRole: Role, excludeDisabled=true): ElementOrNull => {
+  if (!element) return null;
+  const childElement = getEdgeChild(element, searchDirection);
+  if (isMatch(childElement, withRole, excludeDisabled)) {
+    return childElement;
+  } else {
+    return findMatchingSibling(childElement, searchDirection, withRole, excludeDisabled);
+  }
+};
+const getEdgeChild = (element: Element, direction: -1 | 1): ElementOrNull => {
+  switch (direction) {
+    case  1: return element.firstElementChild;
+    case -1: return element.lastElementChild;
+  }
+}
+
+export const nextSibling = (element: ElementOrNull, withRole: Role, excludeDisabled=true): ElementOrNull => {
+  return findMatchingSibling(element, 1, withRole, excludeDisabled);
+};
+export const prevSibling = (element: ElementOrNull, withRole: Role, excludeDisabled=true): ElementOrNull => {
+  return findMatchingSibling(element, -1, withRole, excludeDisabled);
+};
+const findMatchingSibling = (element: ElementOrNull, searchDirection: -1 | 1, withRole: Role, excludeDisabled=true): ElementOrNull => {
+  if (!element) return null;
+  let next = getSibling(element, searchDirection);
+  while (next) {
+    if (isMatch(next, withRole, excludeDisabled)) {
+      return next;
     }
-    const childElement = reverse ? element.lastElementChild : element.firstElementChild;
-    if (isMatch(childElement, withClass, excludeClass)) {
-        return childElement;
+    next = getSibling(next, searchDirection);
+  }
+  return null;
+};
+const getSibling = (element: Element, direction: -1 | 1): ElementOrNull => {
+  switch (direction) {
+    case  1: return element.nextElementSibling;
+    case -1: return element.previousElementSibling;
+  }
+}
+
+export const ancestor = (element: ElementOrNull, ancestorRole: Role, maxLevels: number = 5): ElementOrNull => {
+  if (!element) return null;
+  let parent: ElementOrNull = element.parentElement;
+  for (let i = 1; i <= maxLevels; i++) {
+    if (parent === null) {
+      return null;
+    } else if (hasRole(parent, ancestorRole)) {
+      return parent;
     } else {
-        return reverse ? prevSibling(childElement, withClass, excludeClass) : nextSibling(childElement, withClass, excludeClass);
+      parent = parent.parentElement;
     }
+  }
+  return null;
 };
 
-
-export const nextSibling = (element: ElementOrNull, withClass?: string, excludeClass?: string): ElementOrNull => {
-    return findMatchingSibling(element, (node) => node.nextElementSibling, withClass, excludeClass);
+export const isMatch = (element: ElementOrNull, role: Role, excludeDisabled=true): boolean => {
+  return element !== null && hasRole(element, role) && !(excludeDisabled && isDisabled(element));
 };
 
-export const prevSibling = (element: ElementOrNull, withClass?: string, excludeClass?: string): ElementOrNull => {
-    return findMatchingSibling(element, (node) => node.previousElementSibling, withClass, excludeClass);
+export const isDisabled = (element: ElementOrNull): boolean => {
+  return element != null && element.ariaDisabled != null && element.ariaDisabled != 'false';
 };
 
-const findMatchingSibling = (element: ElementOrNull, nextFn: (element: Element) => ElementOrNull, withClass?: string, excludeClass?: string): ElementOrNull => {
-    if (!element) {
-        return null;
-    }
-    let next = nextFn(element);
-    while (next) {
-        if (isMatch(next, withClass, excludeClass)) {
-            return next;
-        }
-        next = nextFn(next);
-    }
-    return null;
-};
-
-
-export const ancestor = (element: ElementOrNull, ancestorClass: string, maxLevels: number = 5): ElementOrNull => {
-    if (!element) {
-        return null;
-    }
-    let parent: ElementOrNull = element;
-    for (let i = 1; i <= maxLevels; i++) {
-        parent = parent.parentElement;
-        if (parent === null) {
-            return null;
-        } else if (hasClass(parent, ancestorClass)) {
-            return parent;
-        }
-    }
-    return null;
-};
-
-const isMatch = (element: ElementOrNull, withClass?: string, excludeClass?: string): boolean => {
-    return element !== null && (withClass === undefined || hasClass(element, withClass)) && (excludeClass === undefined || !hasClass(element, excludeClass));
-};
-
-export const hasClass = (element: ElementOrNull, className: string): boolean => {
-    return element != null && element.classList.contains(className);
+export const hasRole = (element: ElementOrNull, role: Role): boolean => {
+  return element != null && element.role == role;
 };

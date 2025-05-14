@@ -1,34 +1,52 @@
-import {ancestor, firstChild, hasClass, lastChild, nextSibling, prevSibling} from "./domTraversal";
+import { ancestor, firstChild, hasRole, lastChild, nextSibling, prevSibling } from "./domTraversal";
+
+type ElementOrNull = Element | null;
 
 
-export const isRootMenu = (target: Element | null): boolean => hasClass(target, MENU_ROOT);
-
-export const lastChildMenu = (target: Element | null): Element | null => {
-    const childMenus = firstChild(target, SUBMENUS);
-    return lastChild(childMenus, MENU, MENU_DISABLED);
+export const isRootMenu = (currentMenu: ElementOrNull): boolean => {
+  return currentMenu != null && hasRole(currentMenu, 'menuitem') && hasRole(currentMenu.parentElement, 'menubar');
 };
 
-export const firstChildMenu = (currentMenu: Element | null): Element | null => {
-    const childMenus = firstChild(currentMenu, SUBMENUS);
-    return firstChild(childMenus, MENU, MENU_DISABLED);
+export const lastChildMenu = (currentMenu: ElementOrNull): ElementOrNull => {
+  const childMenus = firstChild(currentMenu, 'menu');
+  return lastChild(childMenus, 'menuitem');
+};
+export const firstChildMenu = (currentMenu: ElementOrNull): ElementOrNull => {
+  const childMenus = firstChild(currentMenu, 'menu');
+  return firstChild(childMenus, 'menuitem');
 };
 
-export const nextRootMenu = (currentMenu: Element | null, direction: 'LEFT' | 'RIGHT'): Element | null => {
-    const thisRootMenu = isRootMenu(currentMenu) ? currentMenu : ancestor(currentMenu, MENU_ROOT, 10);
-    return direction === 'RIGHT' ? nextSibling(thisRootMenu, MENU_ROOT, MENU_DISABLED) :
-        prevSibling(thisRootMenu, MENU_ROOT, MENU_DISABLED);
-};
-
-export const parentMenu = (activeMenu: Element | null): Element | null => {
-    return ancestor(activeMenu, MENU);
-};
-
-export const nextMenu = (activeMenu: Element | null, direction: 'UP' | 'DOWN'): Element | null => {
-    const nextMenu = direction === 'DOWN' ? nextSibling(activeMenu, MENU, MENU_DISABLED) : prevSibling(activeMenu, MENU, MENU_DISABLED);
-    if (nextMenu) {
-        return nextMenu;
-    } else {
-        const subMenus = ancestor(activeMenu, SUBMENUS);
-        return direction === 'DOWN' ? firstChild(subMenus, MENU, MENU_DISABLED) : lastChild(subMenus, MENU, MENU_DISABLED);
+const currentRootMenu = (currentMenu: ElementOrNull): ElementOrNull => {
+  if (isRootMenu(currentMenu)) return currentMenu;
+  const menubar = ancestor(currentMenu, 'menubar', 10);
+  if (menubar) {
+    for (const rootMenu of menubar.children) {
+      if (rootMenu.contains(currentMenu)) return rootMenu;
     }
+  }
+  return null;
+}
+
+export const nextRootMenu = (currentMenu: ElementOrNull, direction: 'LEFT' | 'RIGHT'): ElementOrNull => {
+  const thisRootMenu = currentRootMenu(currentMenu);
+  switch (direction) {
+    case 'LEFT':  return prevSibling(thisRootMenu, 'menuitem');
+    case 'RIGHT': return nextSibling(thisRootMenu, 'menuitem');
+  }
+};
+
+export const parentMenu = (activeMenu: ElementOrNull): ElementOrNull => {
+  return ancestor(activeMenu, 'menuitem');
+};
+
+export const nextMenu = (activeMenu: ElementOrNull, direction: 'UP' | 'DOWN'): ElementOrNull => {
+  const findSibling = (direction === 'DOWN') ? nextSibling : prevSibling;
+  const nextMenu = findSibling(activeMenu, 'menuitem');
+  if (nextMenu) {
+    return nextMenu;
+  } else {
+    const subMenus = ancestor(activeMenu, 'menu');
+    const findChild = (direction === 'DOWN') ? firstChild : lastChild;
+    return findChild(subMenus, 'menuitem');
+  }
 };
