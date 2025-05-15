@@ -1,10 +1,14 @@
 import { MouseEventHandler, ReactNode, RefObject, useRef } from 'react';
 
+import { Menu } from '../Menu';
 import { MenuItemLabel } from '../MenuItemLabel';
 import { useMenuBarContext } from '../../contexts/MenuBarContext';
 
 import useHotKey from '../../hooks/useHotKey';
 import useMenuHover from '../../hooks/useMenuHover';
+import useFocusWithin from '../../hooks/useFocusWithin';
+import useMenuStyle, { cssVar } from '../../hooks/useMenuStyle';
+import { useHover } from 'usehooks-ts';
 
 
 interface RootMenuProps {
@@ -20,7 +24,7 @@ export function RootMenu({
   label,
   icon,
   focusKey,
-  // show = true,
+  show = true,
   disabled = false,
   children,
 }: RootMenuProps) {
@@ -29,6 +33,9 @@ export function RootMenu({
   
   useMenuHover(ref, children);
   useHotKey(ref, disabled, focusKey);
+  const showMenu = useFocusWithin(ref);
+  const hovered = useHover(ref);
+  const focused = (showMenu || hovered);
   
   const onClick: MouseEventHandler = () => {
     if (menuBar.active) {
@@ -39,17 +46,26 @@ export function RootMenu({
     }
   };
   
+  const style = useMenuStyle({
+    display: show ? 'block' : 'none',
+    position: 'relative',
+    outline: cssVar('--win32menubar-menuitem-outline', 'none'),
+  }, [show]);
+  
   return (
     <li {...{
       ref,
+      style,
       tabIndex: 0,
       role: 'menuitem',
       'aria-disabled': disabled,
       'aria-label': label,
     }}>
-      <MenuItemLabel isRootMenu {...{label, focusKey, icon, onClick}} />
+      <MenuItemLabel isRootMenu {...{focused, label, focusKey, icon, onClick}} />
       {children && !disabled && (
-        <ul tabIndex={-1} role='menu'>{children}</ul>
+        <Menu show={showMenu}>
+          {children}
+        </Menu>
       )}
     </li>
   );

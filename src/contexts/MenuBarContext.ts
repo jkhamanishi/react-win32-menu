@@ -1,4 +1,5 @@
 import { createElement, ReactNode, RefObject, useMemo } from 'react';
+import { useEventListener } from 'usehooks-ts';
 import createContext from './createContext';
 
 import useActiveMenuState, { ActiveMenuState } from '../hooks/useActiveMenuState';
@@ -32,6 +33,7 @@ export function MenuBarContextProvider({containerRef, config, children}: MenuBar
   const hotkeys = useHotKeyRegistration(enableHotKeys);
   
   useKeyboardNavigation(containerRef, config.disabled);
+  useEventListener('blur', () => (document.activeElement as HTMLElement).blur());
   
   const value = useMemo<IMenuBarContext>(() => ({
     ...activeState,

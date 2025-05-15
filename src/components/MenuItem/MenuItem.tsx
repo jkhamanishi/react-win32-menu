@@ -8,6 +8,8 @@ import { useMenuBarContext } from '../../contexts/MenuBarContext';
 import { HotKey } from '../../utils/hotKeys';
 import useHotKey from '../../hooks/useHotKey';
 import useMenuHover from '../../hooks/useMenuHover';
+import useFocusWithin from '../../hooks/useFocusWithin';
+import useMenuStyle, { cssVar } from '../../hooks/useMenuStyle';
 
 
 interface MenuItemProps {
@@ -30,7 +32,7 @@ export function MenuItem({
   icon,
   hotKey,
   focusKey,
-  // show = true,
+  show = true,
   disabled = false,
   checked,
   keepOpenOnSelect = false,
@@ -40,6 +42,7 @@ export function MenuItem({
   
   useMenuHover(ref);
   useHotKey(ref, disabled, focusKey, hotKey, menuId, onSelect);
+  const focused = useFocusWithin(ref);
   
   const selectMenu = (e: MouseEvent | KeyboardEvent) => {
     if (menuBar.disabled) return;
@@ -63,16 +66,23 @@ export function MenuItem({
     if (!disabled && e.key === "Enter") selectMenu(e.nativeEvent);
   };
   
+  const style = useMenuStyle({
+    display: show ? 'block' : 'none',
+    position: 'relative',
+    outline: cssVar('--win32menubar-menuitem-outline', 'none'),
+  }, [show]);
+  
   return (
     <li {...{
       ref,
+      style,
       tabIndex: -1,
       role: 'menuitem',
       'aria-disabled': disabled,
       'aria-label': label,
       onKeyDown,
     }}>
-      <MenuItemLabel {...{label, icon, checked, hotKey, onClick}}/>
+      <MenuItemLabel {...{focused, label, icon, checked, hotKey, onClick}} />
     </li>
   );
 }

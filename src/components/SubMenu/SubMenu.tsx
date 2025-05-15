@@ -1,9 +1,12 @@
 import { ReactNode, RefObject, useRef } from 'react';
 
+import { Menu } from '../Menu';
 import { MenuItemLabel } from '../MenuItemLabel';
 
 import useHotKey from '../../hooks/useHotKey';
 import useMenuHover from '../../hooks/useMenuHover';
+import useFocusWithin from '../../hooks/useFocusWithin';
+import useMenuStyle, { cssVar } from '../../hooks/useMenuStyle';
 
 
 interface SubMenuProps {
@@ -19,7 +22,7 @@ export function SubMenu({
   label,
   icon,
   focusKey,
-  // show = true,
+  show = true,
   disabled = false,
   children,
 }: SubMenuProps) {
@@ -27,18 +30,28 @@ export function SubMenu({
   
   useMenuHover(ref, children);
   useHotKey(ref, disabled, focusKey);
+  const focused = useFocusWithin(ref);
+  
+  const style = useMenuStyle({
+    display: show ? 'block' : 'none',
+    position: 'relative',
+    outline: cssVar('--win32menubar-menuitem-outline', 'none'),
+  }, [show]);
   
   return (
     <li {...{
       ref,
+      style,
       tabIndex: -1,
       role: 'menuitem',
       'aria-disabled': disabled,
       'aria-label': label,
     }}>
-      <MenuItemLabel isSubMenu {...{label, icon}}/>
+      <MenuItemLabel isSubMenu {...{focused, label, icon}} />
       {!disabled && (
-        <ul tabIndex={-1} role='menu'>{children}</ul>
+        <Menu subMenu show={focused}>
+          {children}
+        </Menu>
       )}
     </li>
   );
