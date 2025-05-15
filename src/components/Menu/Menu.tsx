@@ -16,7 +16,7 @@ export function Menu({ children, show, subMenu=false }: MenuProps) {
     zIndex: cssVar('--win32menubar-z-index', 100),
     padding: cssVar('--win32menubar-menu-padding', 0),
     margin: cssVar('--win32menubar-menu-margin', 0),
-    background: cssVar('--win32menubar-menu-background', '#DDD'),
+    background: cssVar('--win32menubar-menu-background', '#EEE'),
     border: cssVar('--win32menubar-menu-border', '1px solid #888'),
     boxShadow: cssVar('--win32menubar-menu-box-shadow', '2px 2px 6px #000'),
     borderRadius: cssVar('--win32menubar-menu-border-radius', 0),

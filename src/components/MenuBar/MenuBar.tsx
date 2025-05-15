@@ -40,6 +40,10 @@ export function Win32MenuBar({
     padding: cssVar('--win32menubar-padding', 0),
     margin: cssVar('--win32menubar-margin', 0),
     outline: cssVar('--win32menubar-outline', 'none'),
+    background: cssVar('--win32menubar-background', 'inherit'),
+    color: cssVar('--win32menubar-color', 'inherit'),
+    fontFamily: cssVar('--win32menubar-font-family', 'inherit'),
+    fontSize: cssVar('--win32menubar-font-size', 'inherit'),
     ...customStyle,
   });
   

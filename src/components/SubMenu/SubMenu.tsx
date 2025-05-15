@@ -35,7 +35,7 @@ export function SubMenu({
   const style = useMenuStyle({
     display: show ? 'block' : 'none',
     position: 'relative',
-    outline: cssVar('--win32menubar-menuitem-outline', 'none'),
+    outline: cssVar('--win32menubar-menu-outline', 'none'),
   }, [show]);
   
   return (

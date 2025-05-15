@@ -24,20 +24,29 @@ export function MenuItemLabel({
   icon,
   checked,
   hotKey,
-  isRootMenu,
-  isSubMenu,
+  isRootMenu=false,
+  isSubMenu=false,
   onClick,
 }: MenuItemLabelProps) {
   const { checkedIcon, expandIcon } = useMenuBarContext();
   
+  const isHovered = (focused && !disabled);
+  
+  const rootHoveredStyle = useMenuStyle({
+    background: cssVar('--win32menubar-root-hover-background', '#DDF'),
+    color: cssVar('--win32menubar-root-hover-color', '#000'),
+  }, isRootMenu);
+  const hoveredStyle = useMenuStyle({
+    background: cssVar('--win32menubar-hover-background', '#BBF'),
+    color: cssVar('--win32menubar-hover-color', '#000'),
+    ...rootHoveredStyle,
+  }, isHovered);
+  
   const menuItemStyle = useMenuStyle({
     minWidth: cssVar('--win32menubar-label-min-width', '150px'),
     height: cssVar('--win32menubar-label-height', 'auto'),
-  });
-  const hoveredStyle = useMenuStyle({
-    background: cssVar('--win32menubar-hover-background', '#888'),
-    color: cssVar('--win32menubar-hover-color', '#FFF'),
-  })
+  }, !isRootMenu);
+  
   const containerStyle = useMenuStyle({
     display: 'flex',
     alignItems: 'center',
@@ -48,21 +57,23 @@ export function MenuItemLabel({
     textAlign: cssVar('--win32menubar-label-text-align', 'left'),
     gap: cssVar('--win32menubar-label-icon-gap', '4px'),
     height: cssVar('--win32menubar-root-label-height', 'auto'),
-    ...(!isRootMenu ? menuItemStyle : {}),
-    ...((focused && !disabled) ? hoveredStyle : {}),
-  }, [disabled, focused]);
+    ...menuItemStyle,
+    ...hoveredStyle,
+  }, [isHovered]);
+  
   const rootIconStyle = useMenuStyle({
     height: cssVar('--win32menubar-root-icon-size', '12px'),
     width: cssVar('--win32menubar-root-icon-size', '12px'),
-  });
+  }, isRootMenu);
   const iconStyle = useMenuStyle({
     display: 'flex',
     alignItems: 'center',
     justifyItems: 'center',
     height: cssVar('--win32menubar-label-icon-size', '16px'),
     width: cssVar('--win32menubar-label-icon-size', '16px'),
-    ...(isRootMenu ? rootIconStyle : {}),
+    ...rootIconStyle,
   });
+  
   const labelStyle = useMenuStyle({
     flexGrow: 1,
   });
