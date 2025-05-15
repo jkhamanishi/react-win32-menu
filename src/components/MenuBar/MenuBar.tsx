@@ -48,7 +48,7 @@ export function Win32MenuBar({
   });
   
   return (
-    <ul {...{ref, className, style, tabIndex: 0}}>
+    <ul {...{ref, className, style, role: 'menubar', tabIndex: 0}}>
       <MenuBarContextProvider {...{config, containerRef: ref}}>
         {children}
       </MenuBarContextProvider>
