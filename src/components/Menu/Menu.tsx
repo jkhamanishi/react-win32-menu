@@ -10,7 +10,8 @@ interface MenuProps {
 
 export function Menu({ children, show, subMenu=false }: MenuProps) {
   const menuStyle = useMenuStyle({
-    display: show ? 'block' : 'none',
+    opacity: show ? 1 : 0,
+    pointerEvents: show ? 'auto' : 'none',
     position: 'absolute',
     listStyle: 'none',
     zIndex: cssVar('--win32menubar-z-index', 100),

@@ -7,6 +7,8 @@ import useHotKey from '../../hooks/useHotKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
 import useMenuStyle, { cssVar } from '../../hooks/useMenuStyle';
+import { useHover } from 'usehooks-ts';
+import useFocused from '../../hooks/useFocused';
 
 
 interface SubMenuProps {
@@ -30,7 +32,11 @@ export function SubMenu({
   
   useMenuHover(ref, children);
   useHotKey(ref, disabled, focusKey);
-  const focused = useFocusWithin(ref);
+  const focused = useFocused(ref);
+  const focusedWithin = useFocusWithin(ref);
+  const hovered = useHover(ref);
+  const childrenFocused = focusedWithin && !focused;
+  const showMenu = hovered || childrenFocused;
   
   const style = useMenuStyle({
     display: show ? 'block' : 'none',
@@ -47,9 +53,9 @@ export function SubMenu({
       'aria-disabled': disabled,
       'aria-label': label,
     }}>
-      <MenuItemLabel isSubMenu {...{focused, label, icon}} />
+      <MenuItemLabel isSubMenu {...{focused: focusedWithin, label, icon}} />
       {!disabled && (
-        <Menu subMenu show={focused}>
+        <Menu subMenu show={showMenu}>
           {children}
         </Menu>
       )}
