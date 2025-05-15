@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode, RefObject, useRef } from 'react';
+import { MouseEventHandler, ReactNode, RefObject, useCallback, useEffect, useRef } from 'react';
 
 import { Menu } from '../Menu';
 import { MenuItemLabel } from '../MenuItemLabel';
@@ -8,7 +8,7 @@ import useHotKey from '../../hooks/useHotKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
 import useMenuStyle, { cssVar } from '../../hooks/useMenuStyle';
-import { useHover } from 'usehooks-ts';
+import { useDebounceValue, useHover } from 'usehooks-ts';
 
 
 interface RootMenuProps {
@@ -33,18 +33,25 @@ export function RootMenu({
   
   useMenuHover(ref, children);
   useHotKey(ref, disabled, focusKey);
-  const showMenu = useFocusWithin(ref);
+  const focusedWithin = useFocusWithin(ref);
   const hovered = useHover(ref);
-  const focused = (showMenu || hovered);
+  const showMenu = (focusedWithin && menuBar.active);
+  const focused = (hovered || showMenu);
   
-  const onClick: MouseEventHandler = () => {
-    if (menuBar.active) {
+  const [showMenuDebounced, setDebouncedShowMenu] = useDebounceValue(showMenu, 500);
+  
+  useEffect(() => {
+    setDebouncedShowMenu(showMenu);
+  }, [showMenu]);
+  
+  const onClick: MouseEventHandler = useCallback(() => {
+    if (showMenuDebounced) {
       (document.activeElement as HTMLElement)?.blur();
       menuBar.deactivate();
     } else {
       menuBar.activate();
     }
-  };
+  }, [showMenuDebounced]);
   
   const style = useMenuStyle({
     display: show ? 'block' : 'none',

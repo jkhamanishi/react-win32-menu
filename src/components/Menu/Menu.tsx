@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode, useMemo } from "react";
 import { cssVar, useMenuStyle } from "../../hooks/useMenuStyle";
 
 
@@ -10,8 +10,6 @@ interface MenuProps {
 
 export function Menu({ children, show, subMenu=false }: MenuProps) {
   const menuStyle = useMenuStyle({
-    opacity: show ? 1 : 0,
-    pointerEvents: show ? 'auto' : 'none',
     position: 'absolute',
     listStyle: 'none',
     zIndex: cssVar('--win32menubar-z-index', 100),
@@ -23,10 +21,16 @@ export function Menu({ children, show, subMenu=false }: MenuProps) {
     borderRadius: cssVar('--win32menubar-menu-border-radius', 0),
     top: subMenu ? 0 : undefined,
     left: subMenu ? 'calc(100% - 1px)' : undefined,
-  }, [show]);
+  });
+  
+  const style = useMemo<CSSProperties>(() => ({
+    opacity: show ? 1 : 0,
+    pointerEvents: show ? 'auto' : 'none',
+    ...menuStyle,
+  }), [show]);
   
   return (
-    <ul tabIndex={-1} role='menu' style={menuStyle}>
+    <ul tabIndex={-1} role='menu' style={style}>
       {children}
     </ul>
   );

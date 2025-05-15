@@ -1,5 +1,4 @@
 import type { Meta } from '@storybook/react';
-import { fn } from '@storybook/test';
 
 import { Win32MenuBar, MenuItem, RootMenu, SubMenu } from "../../../src";
 
@@ -36,7 +35,6 @@ export default {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-  args: { onClick: fn() },
   parameters: {
     layout: 'padded',
   },

@@ -47,7 +47,7 @@ export function MenuItemLabel({
     height: cssVar('--win32menubar-label-height', 'auto'),
   }, !isRootMenu);
   
-  const containerStyle = useMenuStyle({
+  const baseContainerStyle = useMenuStyle({
     display: 'flex',
     alignItems: 'center',
     whiteSpace: 'nowrap',
@@ -58,6 +58,10 @@ export function MenuItemLabel({
     gap: cssVar('--win32menubar-label-icon-gap', '4px'),
     height: cssVar('--win32menubar-root-label-height', 'auto'),
     ...menuItemStyle,
+  });
+  
+  const containerStyle = useMenuStyle({
+    ...baseContainerStyle,
     ...hoveredStyle,
   }, [isHovered]);
   
