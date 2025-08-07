@@ -39,3 +39,21 @@ export function cssVar<T extends keyof CustomStyleVars> (
 ): CustomStyleVars[T] {
   return `var(${prop}, ${fallback})` as CustomStyleVars[T];
 }
+
+type CamelCase<S extends string> = S extends `${infer P1}-${infer P2}${infer P3}` ? `${Lowercase<P1>}${Uppercase<P2>}${CamelCase<P3>}` : Lowercase<S>;
+type PropName<S extends string> = S extends `--win32menubar-${infer P1}` ? CamelCase<P1> : never;
+
+export type CustomStyleProps = {
+  [key in keyof CustomStyleVars as PropName<key>]: CustomStyleVars[key];
+} 
+
+export function stylePropsToVars(props: CustomStyleProps): CustomStyleVars {
+  const result: Record<string, unknown> = {};
+  
+  for (const [key, value] of Object.entries(props)) {
+    const kebabKey = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    const varName = ('--win32menubar-' + kebabKey);
+    result[varName] = value;
+  }
+  return result;
+}
