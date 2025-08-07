@@ -3,6 +3,7 @@ import { withoutVitePlugins } from '@storybook/builder-vite';
 
 const config: StorybookConfig = {
   "stories": [
+    "./stories/*.mdx",
     "./stories/**/*.mdx",
     "./stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../src/**/*.mdx",
