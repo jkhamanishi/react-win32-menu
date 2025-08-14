@@ -14,6 +14,7 @@ export function HotKeyHint({hotKey}: HotKeyHintProps) {
   const style = useMenuStyle({
     fontSize: cssVar('--win32menubar-hotkey-font-size', '.8em'),
     fontStyle: cssVar('--win32menubar-hotkey-font-style', 'oblique'),
+    paddingLeft: cssVar('--win32menubar-hotkey-padding-left', '8px'),
   });
   
   return hotKeysEnabled && hotKey && (

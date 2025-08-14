@@ -43,12 +43,13 @@ export function MenuItemLabel({
   }, isHovered);
   
   const menuItemStyle = useMenuStyle({
-    minWidth: cssVar('--win32menubar-label-min-width', '150px'),
     height: cssVar('--win32menubar-label-height', 'auto'),
   }, !isRootMenu);
   
   const baseContainerStyle = useMenuStyle({
-    display: 'flex',
+    display: 'grid',
+    gridColumn: 'span 3',
+    gridTemplateColumns: 'subgrid',
     alignItems: 'center',
     whiteSpace: 'nowrap',
     position: 'relative',
@@ -79,7 +80,7 @@ export function MenuItemLabel({
   });
   
   const labelStyle = useMenuStyle({
-    flexGrow: 1,
+    width: 'max-content',
   });
   
   return (

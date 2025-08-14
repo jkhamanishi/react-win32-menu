@@ -39,7 +39,9 @@ export function SubMenu({
   const showMenu = hovered || childrenFocused;
   
   const style = useMenuStyle({
-    display: show ? 'block' : 'none',
+    display: show ? 'grid' : 'none',
+    gridColumn: 'span 3',
+    gridTemplateColumns: 'subgrid',
     position: 'relative',
     outline: cssVar('--win32menubar-menu-outline', 'none'),
   }, [show]);
