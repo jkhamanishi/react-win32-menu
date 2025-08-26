@@ -1,0 +1,19 @@
+import { Meta, Story, Source, Controls } from '@storybook/blocks';
+import * as Stories from './CssVarsExample.stories';
+import source from './CssVarsExample.tsx?raw';
+
+<Meta of={Stories} />
+
+# CSS Variables Example
+Each style prop has an associated CSS variable that can be altered from a parent node.
+<br />
+
+<Story of={Stories.Example} />
+
+<Source code={source} />
+
+<br />
+
+## Props
+
+<Controls />

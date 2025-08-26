@@ -26,7 +26,7 @@ export function Win32MenuBar({
   disabled = false,
   className, 
   style: styleProps,
-  styleOverride: styleOverride,
+  styleOverride,
   children,
 }: Win32MenuBarProps) {
   const ref = useRef<HTMLUListElement>(null) as RefObject<HTMLUListElement>;
