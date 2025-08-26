@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import { Meta } from '@storybook/react-vite';
 import { args } from '../../utils';
 import ExampleMenuBar from './FullMenuBar';
 import source from './FullMenuBar.tsx?raw';

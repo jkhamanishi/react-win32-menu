@@ -1,6 +1,6 @@
 
 import { ComponentProps, FC } from 'react';
-import { ArgTypes, Meta } from '@storybook/react';
+import { ArgTypes, Meta } from '@storybook/react-vite';
 import { InputType } from 'storybook/internal/types';
 
 

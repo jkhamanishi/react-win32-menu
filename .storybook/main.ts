@@ -8,14 +8,7 @@ const config: StorybookConfig = {
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
-  "addons": [
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    {
-      name: '@storybook/addon-storysource',
-      options: { loaderOptions: { parser: 'typescript' } },
-    },
-  ],
+  "addons": ["@storybook/addon-docs"],
   "framework": {
     "name": "@storybook/react-vite",
     "options": {}
