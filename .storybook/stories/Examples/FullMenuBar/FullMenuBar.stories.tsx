@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react';
-import { args } from '../../utils';
-import ExampleMenuBar from './ExampleMenuBar';
-import source from './ExampleMenuBar.tsx?raw';
+import { args } from '../../../utils';
+import ExampleMenuBar from './FullMenuBar';
+import source from './FullMenuBar.tsx?raw';
 
 export default {
   title: 'Examples/Full Menu Bar',

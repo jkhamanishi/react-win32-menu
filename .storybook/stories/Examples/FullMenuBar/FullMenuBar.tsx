@@ -1,4 +1,4 @@
-import { Win32MenuBar, MenuItem, RootMenu, SubMenu, Win32MenuStyleProps, Separator, Keys } from 'react-win32-menu';
+import { Win32MenuBar, MenuItem, RootMenu, SubMenu, Separator, Keys, Win32MenuStyleProps } from 'react-win32-menu';
 import { action } from '@storybook/addon-actions';
 
 function ExampleMenuBar(props: Win32MenuStyleProps) {
