@@ -6,6 +6,9 @@ import dts from 'vite-plugin-dts'
 
 // https://vite.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: { 'react-win32-menu': '/src' },
+  },
   plugins: [
     react(),
     dts({
@@ -14,6 +17,7 @@ export default defineConfig({
       rollupTypes: true,
     }),
   ],
+  
   build: {
     lib: {
       formats: ['es', 'cjs'],

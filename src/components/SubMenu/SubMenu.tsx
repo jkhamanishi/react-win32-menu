@@ -6,7 +6,7 @@ import { MenuItemLabel } from '../MenuItemLabel';
 import useHotKey from '../../hooks/useHotKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
-import useMenuStyle, { cssVar } from '../../hooks/useMenuStyle';
+import useMenuStyle from '../../hooks/useMenuStyle';
 import { useHover } from 'usehooks-ts';
 import useFocused from '../../hooks/useFocused';
 
@@ -43,7 +43,7 @@ export function SubMenu({
     gridColumn: 'span 3',
     gridTemplateColumns: 'subgrid',
     position: 'relative',
-    outline: cssVar('--win32menubar-menu-outline', 'none'),
+    outline: 'none',
   }, [show]);
   
   return (

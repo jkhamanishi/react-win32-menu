@@ -12,7 +12,8 @@
     "build": "tsc -b && vite build",
     "test": "vitest run",
     "storybook": "storybook dev -p 6006 --ci",
-    "build-storybook": "storybook build -o dist/storybook"
+    "build-storybook": "storybook build -o dist/storybook",
+    "tsc": "tsc -p ."
   },
   "type": "module",
   "sideEffects": false,

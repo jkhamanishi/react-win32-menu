@@ -7,7 +7,7 @@ import { useMenuBarContext } from '../../contexts/MenuBarContext';
 import useHotKey from '../../hooks/useHotKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
-import useMenuStyle, { cssVar } from '../../hooks/useMenuStyle';
+import useMenuStyle from '../../hooks/useMenuStyle';
 import { useDebounceValue, useHover } from 'usehooks-ts';
 
 
@@ -56,7 +56,7 @@ export function RootMenu({
   const style = useMenuStyle({
     display: show ? 'block' : 'none',
     position: 'relative',
-    outline: cssVar('--win32menubar-menu-outline', 'none'),
+    outline: 'none',
   }, [show]);
   
   return (

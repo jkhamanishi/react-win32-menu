@@ -1,51 +1,58 @@
 import * as CSS from "csstype";
 
-
-export interface CustomStyleVars {
-  '--win32menubar-padding'?: CSS.Property.Padding;
-  '--win32menubar-margin'?: CSS.Property.Margin;
-  '--win32menubar-outline'?: CSS.Property.Outline;
-  '--win32menubar-z-index'?: CSS.Property.ZIndex;
-  '--win32menubar-background'?: CSS.Property.Background;
-  '--win32menubar-color'?: CSS.Property.Color;
-  '--win32menubar-font-family'?: CSS.Property.FontFamily;
-  '--win32menubar-font-size'?: CSS.Property.FontSize;
-  '--win32menubar-menu-padding'?: CSS.Property.Padding;
-  '--win32menubar-menu-margin'?: CSS.Property.Margin;
-  '--win32menubar-menu-outline'?: CSS.Property.Outline;
-  '--win32menubar-menu-background'?: CSS.Property.Background;
-  '--win32menubar-menu-border'?: CSS.Property.Border;
-  '--win32menubar-menu-box-shadow'?: CSS.Property.BoxShadow;
-  '--win32menubar-menu-border-radius'?: CSS.Property.BorderRadius;
-  '--win32menubar-root-label-height'?: CSS.Property.Height;
-  '--win32menubar-label-height'?: CSS.Property.Height;
-  '--win32menubar-label-padding'?: CSS.Property.Padding;
-  '--win32menubar-label-min-width'?: CSS.Property.MinWidth;
-  '--win32menubar-label-text-align'?: CSS.Property.TextAlign;
-  '--win32menubar-label-icon-gap'?: CSS.Property.Gap;
-  '--win32menubar-label-icon-size'?: CSS.Property.Height | CSS.Property.Width;
-  '--win32menubar-root-icon-size'?: CSS.Property.Height | CSS.Property.Width;
-  '--win32menubar-hotkey-font-size'?: CSS.Property.FontSize;
-  '--win32menubar-hotkey-font-style'?: CSS.Property.FontStyle;
-  '--win32menubar-root-hover-background'?: CSS.Property.Background;
-  '--win32menubar-root-hover-color'?: CSS.Property.Color;
-  '--win32menubar-hover-background'?: CSS.Property.Background;
-  '--win32menubar-hover-color'?: CSS.Property.Color;
+type StyleProp<V extends string, T> = {
+  varname: `--win32menubar-${V}`;
+  type: T;
 }
 
-export function cssVar<T extends keyof CustomStyleVars> (
-  prop: T,
-  fallback: CustomStyleVars[T],
-): CustomStyleVars[T] {
-  return `var(${prop}, ${fallback})` as CustomStyleVars[T];
+interface MenuStyle {
+  background: StyleProp<'background', CSS.Property.Background>;
+  color: StyleProp<'color', CSS.Property.Color>;
+  outline: StyleProp<'outline', CSS.Property.Outline>;
+  padding: StyleProp<'padding', CSS.Property.Padding>;
+  margin: StyleProp<'margin', CSS.Property.Margin>;
+  zIndex: StyleProp<'z-index', CSS.Property.ZIndex>;
+  fontFamily: StyleProp<'font-family', CSS.Property.FontFamily>;
+  fontSize: StyleProp<'font-size', CSS.Property.FontSize>;
+  menuMinWidth: StyleProp<'menu-min-width', CSS.Property.MinWidth>;
+  menuPadding: StyleProp<'menu-padding', CSS.Property.Padding>;
+  menuMargin: StyleProp<'menu-margin', CSS.Property.Margin>;
+  menuBackground: StyleProp<'menu-background', CSS.Property.Background>;
+  menuBorder: StyleProp<'menu-border', CSS.Property.Border>;
+  menuBoxShadow: StyleProp<'menu-box-shadow', CSS.Property.BoxShadow>;
+  menuBorderRadius: StyleProp<'menu-border-radius', CSS.Property.BorderRadius>;
+  rootLabelHeight: StyleProp<'root-label-height', CSS.Property.Height>;
+  rootHoverBackground: StyleProp<'root-hover-background', CSS.Property.Background>;
+  rootHoverColor: StyleProp<'root-hover-color', CSS.Property.Color>;
+  rootIconSize: StyleProp<'root-icon-size', CSS.Property.Height | CSS.Property.Width>;
+  labelHeight: StyleProp<'label-height', CSS.Property.Height>;
+  labelPadding: StyleProp<'label-padding', CSS.Property.Padding>;
+  labelTextAlign: StyleProp<'label-text-align', CSS.Property.TextAlign>;
+  labelIconGap: StyleProp<'label-icon-gap', CSS.Property.Gap>;
+  labelIconSize: StyleProp<'label-icon-size', CSS.Property.Height | CSS.Property.Width>;
+  hotkeyFontSize: StyleProp<'hotkey-font-size', CSS.Property.FontSize>;
+  hotkeyFontStyle: StyleProp<'hotkey-font-style', CSS.Property.FontStyle>;
+  hotkeyPaddingLeft: StyleProp<'hotkey-padding-left', CSS.Property.PaddingLeft>;
+  hoverBackground: StyleProp<'hover-background', CSS.Property.Background>;
+  hoverColor: StyleProp<'hover-color', CSS.Property.Color>;
+  separatorColor: StyleProp<'separator-color', CSS.Property.BorderBottomColor>;
+  separatorHeight: StyleProp<'separator-height', CSS.Property.BorderBottomWidth>;
+  separatorPadding: StyleProp<'separator-padding', CSS.Property.PaddingTop>;
 }
 
-type CamelCase<S extends string> = S extends `${infer P1}-${infer P2}${infer P3}` ? `${Lowercase<P1>}${Uppercase<P2>}${CamelCase<P3>}` : Lowercase<S>;
-type PropName<S extends string> = S extends `--win32menubar-${infer P1}` ? CamelCase<P1> : never;
-
+export type CustomStyleVars = {
+  [key in keyof MenuStyle as MenuStyle[key]['varname']]?: MenuStyle[key]['type'];
+}
 export type CustomStyleProps = {
-  [key in keyof CustomStyleVars as PropName<key>]: CustomStyleVars[key];
-} 
+  [key in keyof MenuStyle]?: MenuStyle[key]['type'];
+}
+
+export function cssVar<V extends keyof CustomStyleVars> (
+  prop: V,
+  fallback: CustomStyleVars[V],
+): CustomStyleVars[V] {
+  return `var(${prop}, ${fallback})` as CustomStyleVars[V];
+}
 
 export function stylePropsToVars(props: CustomStyleProps): CustomStyleVars {
   const result: Record<string, unknown> = {};
@@ -55,5 +62,5 @@ export function stylePropsToVars(props: CustomStyleProps): CustomStyleVars {
     const varName = ('--win32menubar-' + kebabKey);
     result[varName] = value;
   }
-  return result;
+  return result as CustomStyleVars;
 }

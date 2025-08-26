@@ -9,7 +9,7 @@ import { HotKey } from '../../utils/hotKeys';
 import useHotKey from '../../hooks/useHotKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
-import useMenuStyle, { cssVar } from '../../hooks/useMenuStyle';
+import useMenuStyle from '../../hooks/useMenuStyle';
 
 
 interface MenuItemProps {
@@ -71,7 +71,7 @@ export function MenuItem({
     gridColumn: 'span 3',
     gridTemplateColumns: 'subgrid',
     position: 'relative',
-    outline: cssVar('--win32menubar-menu-outline', 'none'),
+    outline: 'none',
   }, [show]);
   
   return (

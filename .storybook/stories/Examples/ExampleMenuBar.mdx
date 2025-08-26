@@ -1,18 +1,18 @@
-import { Meta, Controls, Story, Source } from '@storybook/blocks';
+import { Meta, Story, Source, ArgTypes, Subtitle } from '@storybook/blocks';
 import * as Stories from './ExampleMenuBar.stories';
+import source from './ExampleMenuBar.tsx?raw';
 
 <Meta of={Stories} />
 
 # Full Menu Bar Example
-
-Full menu bar example
+<Subtitle>A full example using all package components.</Subtitle>
 
 <Story of={Stories.Example} />
 
-<Source of={Stories.Example} />
+<Source code={source} />
 
 <br />
 
 ## Props
 
-<Controls />
+<ArgTypes />
