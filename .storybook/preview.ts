@@ -7,14 +7,14 @@ const preview: Preview = {
         order: [
           'Getting Started',
           'Examples', ['Full Menu Bar', '*'],
-          'Components'
+          'Components',
+          'Types',
         ],
       },
     },
-
     docs: {
-      codePanel: true
-    }
+      codePanel: true,
+    },
   },
 };
 
