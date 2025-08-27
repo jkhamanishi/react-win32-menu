@@ -1,173 +1,174 @@
-import { Meta } from '@storybook/react-vite';
-import { args } from '../../utils';
-import ExampleMenuBar from './FullMenuBar';
-import source from './FullMenuBar.tsx?raw';
+import { args, Props, Meta } from '../../utils';
+import ExampleMenuBar from './CssVarsExample';
+import source from './CssVarsExample.tsx?raw';
 
 export default {
-  title: 'Examples/Full Menu Bar',
+  title: 'Examples/CSS Variables',
   component: ExampleMenuBar,
   parameters: {
     layout: 'padded',
-    storySource: { source },
+    docs: {
+      source: { code: source },
+    },
   },
-  ...args<typeof ExampleMenuBar>({
-    background: {
+  ...args<Props<typeof ExampleMenuBar>>({
+    '--win32menubar-background': {
       description: 'The background of the menu bar.', 
       defaultValue: 'inherit',
       control: 'color',
     },
-    color: {
+    '--win32menubar-color': {
       description: 'The font color of the menu labels.', 
       defaultValue: 'inherit',
       control: 'color',
     },
-    outline: {
+    '--win32menubar-outline': {
       description: 'The persistent outline of the menu bar.',
       defaultValue: 'none',
       control: 'text',
     },
-    padding: {
+    '--win32menubar-padding': {
       description: 'The padding of the menu bar.',
       defaultValue: '0',
       control: 'text',
     },
-    margin: {
+    '--win32menubar-margin': {
       description: 'The margin of the menu bar.',
       defaultValue: '0',
       control: 'text',
     },
-    zIndex: {
+    '--win32menubar-z-index': {
       description: 'The z-index of the menus.',
       defaultValue: 100,
       control: 'number',
     },
-    fontFamily: {
+    '--win32menubar-font-family': {
       description: 'The font family of the menu labels.',
       defaultValue: 'sans-serif',
       control: 'text',
     },
-    fontSize: {
+    '--win32menubar-font-size': {
       description: 'The font size of the menu labels.',
       defaultValue: 'inherit',
       control: 'text',
     },
-    menuMinWidth: {
+    '--win32menubar-menu-min-width': {
       description: 'The minimum width of the menus.',
       defaultValue: '150px',
       control: 'text',
     },
-    menuPadding: {
+    '--win32menubar-menu-padding': {
       description: 'The content padding size of the menus.',
       defaultValue: '0',
       control: 'text',
     },
-    menuMargin: {
+    '--win32menubar-menu-margin': {
       description: 'The margin size of the menus.',
       defaultValue: '0',
       control: 'text',
     },
-    menuBackground: {
+    '--win32menubar-menu-background': {
       description: 'The background of the menus.',
       defaultValue: '#EEE',
       control: 'color',
     },
-    menuBorder: {
+    '--win32menubar-menu-border': {
       description: 'The border style of the menus.',
       defaultValue: '1px solid #888',
       control: 'text',
     },
-    menuBorderRadius: {
+    '--win32menubar-menu-border-radius': {
       description: 'The border radius of the menus',
       defaultValue: '0',
       control: 'text',
     },
-    menuBoxShadow: {
+    '--win32menubar-menu-box-shadow': {
       description: 'The box shadow style of the menus.',
       defaultValue: '2px 2px 2px #555',
       control: 'text',
     },
-    rootLabelHeight: {
+    '--win32menubar-root-label-height': {
       description: 'The height of the root menu labels.',
       defaultValue: 'auto',
       control: 'text',
     },
-    rootHoverBackground: {
+    '--win32menubar-root-hover-background': {
       description: 'The background of the root menu labels when hovered or focused.',
       defaultValue: '#DDF',
       control: 'color',
     },
-    rootHoverColor: {
+    '--win32menubar-root-hover-color': {
       description: 'The font color of the root menu labels when hovered or focused.',
       defaultValue: '#000',
       control: 'color',
     },
-    rootIconSize: {
+    '--win32menubar-root-icon-size': {
       description: 'The size of the root menu label icon.',
       defaultValue: '12px',
       control: 'text',
     },
-    labelHeight: {
+    '--win32menubar-label-height': {
       description: 'The height of the menu item labels.',
       defaultValue: 'auto',
       control: 'text',
     },
-    labelPadding: {
+    '--win32menubar-label-padding': {
       description: 'The content padding for the menu item labels.',
       defaultValue: '4px 6px',
       control: 'text',
     },
-    labelTextAlign: {
+    '--win32menubar-label-text-align': {
       description: 'Text alignment of the menu item labels.',
       defaultValue: 'left',
       control: 'select',
       options: ['center', 'end', 'justify', 'left', 'match-parent', 'right', 'start'],
     },
-    labelIconGap: {
+    '--win32menubar-label-icon-gap': {
       description: 'The gap between the menu item icon and label.',
       defaultValue: '4px',
       control: 'text',
     },
-    labelIconSize: {
+    '--win32menubar-label-icon-size': {
       description: 'The size of the menu item icon.',
       defaultValue: '16px',
       control: 'text',
     },
-    hotkeyFontSize: {
+    '--win32menubar-hotkey-font-size': {
       description: 'The font size of the hotkey hints.',
       defaultValue: '.8em',
       control: 'text',
     },
-    hotkeyFontStyle: {
+    '--win32menubar-hotkey-font-style': {
       description: 'The font style of the hotkey hints.',
       defaultValue: 'oblique',
       control: 'text',
     },
-    hotkeyPaddingLeft: {
+    '--win32menubar-hotkey-padding-left': {
       description: 'The left padding of the hotkey hints.',
       defaultValue: '8px',
       control: 'text',
     },
-    hoverBackground: {
+    '--win32menubar-hover-background': {
       description: 'The background of the menu item labels when hovered or focused.',
       defaultValue: '#BBF',
       control: 'color',
     },
-    hoverColor: {
+    '--win32menubar-hover-color': {
       description: 'The font color of the menu item labels when hovered or focused.',
       defaultValue: '#000',
       control: 'color',
     },
-    separatorColor: {
+    '--win32menubar-separator-color': {
       description: 'The color of the separator.',
       defaultValue: 'lightgrey',
       control: 'color',
     },
-    separatorHeight: {
+    '--win32menubar-separator-height': {
       description: 'The thickness of the separator.',
       defaultValue: '1px',
       control: 'text',
     },
-    separatorPadding: {
+    '--win32menubar-separator-padding': {
       description: 'The padding above and below the separator.',
       defaultValue: '2px',
       control: 'text',
