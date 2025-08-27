@@ -7,7 +7,7 @@ import useKeyboardNavigation from '../hooks/useKeyboardNavigation';
 
 
 export interface MenuBarConfig {
-  onSelect?: (menuId: string) => void
+  onSelect?: (menuId: string) => void;
   expandIcon: string | ReactNode;
   checkedIcon: string | ReactNode;
   hotKeysEnabled: boolean;

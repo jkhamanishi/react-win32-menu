@@ -36,6 +36,11 @@ export default {
       type: 'Win32MenuCSSVars & CSSProperties',
       control: 'object',
     },
+    onSelect: {
+      description: 'The menu item handler when the `onSelect` argument is not directly provided to the `MenuItem` component.', 
+      type: '(menuId: string) => void',
+      control: false,
+    },
     expandIcon: {
       description: 'The icon used to indicate a submenu.', 
       type: 'string | ReactNode',
