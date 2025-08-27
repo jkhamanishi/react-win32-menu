@@ -6,7 +6,7 @@ import { CustomStyleProps, stylePropsToVars } from '../../utils/menuStyle';
 
 export type Win32MenuStyleProps = CustomStyleProps;
 export type Win32MenuCSSVars = CustomStyleVars;
-export type Win32MenuStyleOverrideProps = CustomStyleVars & CSSProperties;
+export type Win32MenuStyleOverrideProps = Win32MenuCSSVars & CSSProperties;
 
 export interface Win32MenuBarProps extends Partial<MenuBarConfig> {
   className?: string;
@@ -24,6 +24,7 @@ export function Win32MenuBar({
   checkedIcon = "✔", 
   hotKeysEnabled = true, 
   disabled = false,
+  keepActive = false,
   className, 
   style: styleProps,
   styleOverride,
@@ -37,6 +38,7 @@ export function Win32MenuBar({
     checkedIcon,
     hotKeysEnabled,
     disabled,
+    keepActive,
   }), [onSelect, expandIcon, checkedIcon, hotKeysEnabled, disabled]);
   
   const style = useMenuStyle({

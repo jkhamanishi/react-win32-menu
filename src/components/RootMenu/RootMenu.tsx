@@ -11,13 +11,14 @@ import useMenuStyle from '../../hooks/useMenuStyle';
 import { useDebounceValue, useHover } from 'usehooks-ts';
 
 
-interface RootMenuProps {
+export interface RootMenuProps {
   label: string;
   show?: boolean;
   disabled?: boolean;
   icon?: ReactNode;
   focusKey?: string;
   children?: ReactNode;
+  keepOpen?: boolean;
 }
 
 export function RootMenu({
@@ -27,6 +28,7 @@ export function RootMenu({
   show = true,
   disabled = false,
   children,
+  keepOpen = false,
 }: RootMenuProps) {
   const menuBar = useMenuBarContext();
   const ref = useRef<HTMLLIElement>(null) as RefObject<HTMLLIElement>;
@@ -35,7 +37,7 @@ export function RootMenu({
   useHotKey(ref, disabled, focusKey);
   const focusedWithin = useFocusWithin(ref);
   const hovered = useHover(ref);
-  const showMenu = (focusedWithin && menuBar.active);
+  const showMenu = keepOpen || (focusedWithin && menuBar.active);
   const focused = (hovered || showMenu);
   
   const [showMenuDebounced, setDebouncedShowMenu] = useDebounceValue(showMenu, 500);

@@ -12,6 +12,7 @@ export interface MenuBarConfig {
   checkedIcon: string | ReactNode;
   hotKeysEnabled: boolean;
   disabled: boolean;
+  keepActive: boolean;
 }
 
 interface IMenuBarContext extends MenuBarConfig, ActiveMenuState, HotKeyRegistration {};
@@ -26,7 +27,7 @@ interface MenuBarContextProviderProps {
 }
 
 export function MenuBarContextProvider({containerRef, config, children}: MenuBarContextProviderProps) {
-  const activeState = useActiveMenuState(containerRef);
+  const activeState = useActiveMenuState(containerRef, config.keepActive);
   
   const enableHotKeys = (config.hotKeysEnabled && !config.disabled);
   const hotkeys = useHotKeyRegistration(enableHotKeys);

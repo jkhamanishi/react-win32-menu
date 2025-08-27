@@ -7,15 +7,15 @@ export interface ActiveMenuState {
   deactivate: () => void;
 }
 
-export default function useActiveMenuState(ref: RefObject<HTMLElement>): ActiveMenuState {
-  const { value, setTrue, setFalse } = useBoolean(false);
+export default function useActiveMenuState(ref: RefObject<HTMLElement>, keepActive: boolean): ActiveMenuState {
+  const { value, setTrue, setFalse } = useBoolean(keepActive);
   
-  useEventListener('blur', setFalse);
-  useOnClickOutside(ref, setFalse);
+  const active = value;
+  const activate = setTrue;
+  const deactivate = !keepActive ? setFalse : (()=>{});
   
-  return {
-    active: value,
-    activate: setTrue,
-    deactivate: setFalse,
-  };
+  useEventListener('blur', deactivate);
+  useOnClickOutside(ref, deactivate);
+  
+  return { active, activate, deactivate };
 }

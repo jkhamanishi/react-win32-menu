@@ -1,27 +1,64 @@
-import type { Meta } from '@storybook/react-vite';
-import { fn } from 'storybook/test';
+import { args, Props, Meta } from '../../../.storybook/utils';
+import ExampleMenuBar from './MenuBar.example';
+import source from './MenuBar.example.tsx?raw';
 
-import { Win32MenuBar, RootMenu } from "..";
-
-
-export function Example() {
-  return (
-    <Win32MenuBar>
-      <RootMenu label="Menu 1" />
-      <RootMenu label="Menu 2" />
-      <RootMenu label="Menu 3" />
-    </Win32MenuBar>
-  );
-}
+export const Example = ExampleMenuBar;
+type TArgs = Props<typeof Example>;
 
 export default {
   title: 'Components/Win32MenuBar',
-  tags: ['autodocs'],
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
-  args: { onClick: fn() },
+  component: Example,
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
+    docs: {
+      source: { code: source },
+    },
+    controls: {
+      exclude: ['children'],
+    },
   },
+  ...args<TArgs>({
+    children: {
+      description: 'RootMenu components.',
+      control: false,
+    },
+    className: {
+      description: 'Add a class to the component.',
+      control: 'text',
+    },
+    style: {
+      description: 'The style config object. See "Full Menu Bar" example for usage.', 
+      type: 'Win32MenuStyleProps',
+      control: 'object',
+    },
+    styleOverride: {
+      description: 'The style config object. See "CSS Variables" example for usage.', 
+      type: 'Win32MenuCSSVars & CSSProperties',
+      control: 'object',
+    },
+    expandIcon: {
+      description: 'The icon used to indicate a submenu.', 
+      type: 'string | ReactNode',
+      control: 'text',
+      defaultValue: "❯",
+    },
+    checkedIcon: {
+      description: 'The icon used to indicate a submenu.', 
+      type: 'string | ReactNode',
+      control: 'text',
+      defaultValue: "✔",
+    },
+    hotKeysEnabled: {
+      description: 'Enable hotkeys for the entire menu bar.', 
+      type: 'boolean',
+      control: 'boolean',
+      defaultValue: true,
+    },
+    disabled: {
+      description: 'Disable the entire menu bar.', 
+      type: 'boolean',
+      control: 'boolean',
+      defaultValue: false,
+    },
+  }),
 } satisfies Meta<typeof Example>;
