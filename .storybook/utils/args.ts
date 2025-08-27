@@ -10,12 +10,13 @@ interface ArgDetails<T> {
   control: InputType['control'];
   options?: InputType['options'];
   type?: string;
+  required?: boolean;
 }
 type ArgsDescription<TArgs> = { [ArgName in keyof TArgs]: ArgDetails<TArgs[ArgName]> };
 type MetaArgs<T> = Pick<Meta<T>, 'argTypes' | 'args'>;
 
 
-function argType<T>({description, defaultValue, control, options, type}: ArgDetails<T>): InputType {
+function argType<T>({description, defaultValue, control, options, type, required=false}: ArgDetails<T>): InputType {
   return {
     control,
     options,
@@ -23,7 +24,8 @@ function argType<T>({description, defaultValue, control, options, type}: ArgDeta
     table: {
       defaultValue: defaultValue === undefined ? undefined : { summary: defaultValue as string },
       type: !type ? undefined : { summary: type },
-    }
+    },
+    type: { required, name: 'string' },
   };
 }
 

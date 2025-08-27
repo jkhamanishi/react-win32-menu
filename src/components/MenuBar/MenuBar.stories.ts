@@ -20,10 +20,13 @@ export default {
   ...args<TArgs>({
     children: {
       description: 'RootMenu components.',
+      type: 'ReactNode',
+      required: true,
       control: false,
     },
     className: {
-      description: 'Add a class to the component.',
+      description: 'Add a class name to the component.',
+      type: 'string',
       control: 'text',
     },
     style: {

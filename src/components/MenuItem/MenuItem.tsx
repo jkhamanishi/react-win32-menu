@@ -12,7 +12,7 @@ import useFocusWithin from '../../hooks/useFocusWithin';
 import useMenuStyle from '../../hooks/useMenuStyle';
 
 
-interface MenuItemProps {
+export interface MenuItemProps {
   label: string;
   show?: boolean;
   disabled?: boolean;
@@ -84,7 +84,7 @@ export function MenuItem({
       'aria-label': label,
       onKeyDown,
     }}>
-      <MenuItemLabel {...{focused, label, icon, checked, hotKey, onClick}} />
+      <MenuItemLabel {...{focused, label, icon, checked, hotKey, focusKey, onClick}} />
     </li>
   );
 }
