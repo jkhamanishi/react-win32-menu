@@ -11,7 +11,7 @@ import { useHover } from 'usehooks-ts';
 import useFocused from '../../hooks/useFocused';
 
 
-interface SubMenuProps {
+export interface SubMenuProps {
   label: string;
   show?: boolean;
   disabled?: boolean;

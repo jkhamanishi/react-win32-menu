@@ -1,14 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { args, Props } from '../../../utils';
 
-import ExampleMenu from './RootMenu.example';
-import source from './RootMenu.example.tsx?raw';
+import ExampleMenu from './SubMenu.example';
+import source from './SubMenu.example.tsx?raw';
 
 
 type TArgs = Props<typeof ExampleMenu>;
 
 const meta = {
-  title: 'Components/RootMenu',
+  title: 'Components/SubMenu',
   component: ExampleMenu,
   parameters: {
     layout: 'padded',
@@ -21,7 +21,7 @@ const meta = {
   },
   ...args<TArgs>({
     label: {
-      description: 'The label text of the menu.',
+      description: 'The label text of the submenu.',
       type: 'string',
       required: true,
       control: 'text',
@@ -39,7 +39,7 @@ const meta = {
       defaultValue: false,
     },
     icon: {
-      description: 'The icon to display alongside the menu label.',
+      description: 'The icon to display alongside the submenu label.',
       type: 'ReactNode',
       control: false,
     },
@@ -61,6 +61,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Example: Story = {
   args: {
-    label: 'Edit',
+    label: 'Zoom',
   },
 };
