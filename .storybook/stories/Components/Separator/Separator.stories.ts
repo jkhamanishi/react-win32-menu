@@ -1,4 +1,4 @@
-import { args, Props, Meta } from '../../../.storybook/utils';
+import { args, Props, Meta } from '../../../utils';
 import ExampleMenu from './Separator.example';
 import source from './Separator.example.tsx?raw';
 

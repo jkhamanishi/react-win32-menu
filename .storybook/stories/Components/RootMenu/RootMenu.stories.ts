@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { args, Props } from '../../../.storybook/utils';
+import { args, Props } from '../../../utils';
 
 import ExampleMenu from './RootMenu.example';
 import source from './RootMenu.example.tsx?raw';

@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { args, Props } from '../../../.storybook/utils';
+import { args, Props } from '../../../utils';
 
 import ExampleMenu from './MenuItem.example';
 import source from './MenuItem.example.tsx?raw';
-import { Keys } from '../../utils/hotKeys';
+import { Keys } from 'react-win32-menu';
 
 
 type TArgs = Props<typeof ExampleMenu>;

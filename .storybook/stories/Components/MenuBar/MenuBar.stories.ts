@@ -1,4 +1,4 @@
-import { args, Props, Meta } from '../../../.storybook/utils';
+import { args, Props, Meta } from '../../../utils';
 import ExampleMenuBar from './MenuBar.example';
 import source from './MenuBar.example.tsx?raw';
 
