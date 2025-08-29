@@ -1,0 +1,17 @@
+import { Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as MenuItem from './MenuItem.stories';
+import * as CssVars from '../../Examples/CssVarsExample/CssVarsExample.stories';
+
+<Meta of={MenuItem} />
+
+# Menu Item Component
+
+```tsx
+import { MenuItem } from 'react-win32-menu';
+```
+
+## Props
+<ArgTypes />
+
+## CSS Variables
+<ArgTypes of={CssVars} include={/--win32menubar-(color|font|label|hotkey|hover)/} />

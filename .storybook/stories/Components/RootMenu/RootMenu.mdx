@@ -1,0 +1,17 @@
+import { Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as RootMenu from './RootMenu.stories';
+import * as CssVars from '../../Examples/CssVarsExample/CssVarsExample.stories';
+
+<Meta of={RootMenu} />
+
+# Root Menu Component
+
+```tsx
+import { RootMenu } from 'react-win32-menu';
+```
+
+## Props
+<ArgTypes />
+
+## CSS Variables
+<ArgTypes of={CssVars} include={/--win32menubar-(root|color|font|menu|z-index)/} />

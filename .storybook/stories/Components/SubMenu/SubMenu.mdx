@@ -1,0 +1,17 @@
+import { Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SubMenu from './SubMenu.stories';
+import * as CssVars from '../../Examples/CssVarsExample/CssVarsExample.stories';
+
+<Meta of={SubMenu} />
+
+# Root Menu Component
+
+```tsx
+import { SubMenu } from 'react-win32-menu';
+```
+
+## Props
+<ArgTypes />
+
+## CSS Variables
+<ArgTypes of={CssVars} include={/--win32menubar-(color|font|menu|label|z-index)/} />

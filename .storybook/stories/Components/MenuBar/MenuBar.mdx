@@ -1,0 +1,18 @@
+import { Meta, ArgTypes, Subtitle } from '@storybook/addon-docs/blocks';
+import * as MenuBar from './MenuBar.stories';
+import * as CssVars from '../../Examples/CssVarsExample/CssVarsExample.stories';
+
+<Meta of={MenuBar} />
+
+# Menu Bar Component
+<Subtitle>The main menu bar component. Wrap this component around all root menus.</Subtitle>
+
+```tsx
+import { Win32MenuBar } from 'react-win32-menu';
+```
+
+## Props
+<ArgTypes />
+
+## CSS Variables
+<ArgTypes of={CssVars} include={/--win32menubar-(background|outline|padding|margin)/} />
