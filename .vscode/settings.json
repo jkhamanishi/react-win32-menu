@@ -2,5 +2,6 @@
   "cSpell.words": [
     "autodocs",
     "storysource"
-  ]
+  ],
+  "explorer.sortOrderLexicographicOptions": "upper"
 }

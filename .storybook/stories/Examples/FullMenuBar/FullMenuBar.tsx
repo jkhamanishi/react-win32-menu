@@ -6,7 +6,7 @@ function ExampleMenuBar(props: Win32MenuStyleProps) {
     <div style={{width: '100%', borderBottom: '1px solid lightgray'}}>
       <Win32MenuBar style={props}>
         <RootMenu label='File'>
-          <MenuItem label='New' onSelect={action('New')} />
+          <MenuItem label='New' hotKey={Keys.CtrlAlt('N')} onSelect={action('New')} />
           <MenuItem label='Open...' hotKey={Keys.Ctrl('O')} onSelect={action('Open')} />
           <MenuItem label='Save' hotKey={Keys.Ctrl('S')} onSelect={action('Save')} />
           <MenuItem label='Save As...' hotKey={Keys.CtrlShift('S')} onSelect={action('Save As')} />

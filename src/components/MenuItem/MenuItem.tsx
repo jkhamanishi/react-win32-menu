@@ -2,7 +2,7 @@ import { KeyboardEventHandler, MouseEventHandler, ReactNode, RefObject, useRef }
 
 import { MenuItemLabel } from '../MenuItemLabel';
 
-import { EventCallback } from '../../hooks/useHotKeyRegistration';
+import { EventCallback } from '../../contexts/HotKeyContext';
 import { useMenuBarContext } from '../../contexts/MenuBarContext';
 
 import { HotKey } from '../../utils/hotKeys';
