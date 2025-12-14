@@ -1,8 +1,8 @@
 import { ReactNode, RefObject } from 'react';
 import aggregateComponents from './aggregateComponents';
 
-import { ConfigContextProvider, MenuBarConfig, useMenuBarConfig } from './ConfigContext';
-import { ActiveStateContextProvider, useActiveStateContext } from './ActiveStateContext';
+import { createConfigContextProvider, MenuBarConfig, useMenuBarConfig } from './ConfigContext';
+import { createActiveStateContextProvider, useActiveStateContext } from './ActiveStateContext';
 import { HotKeyContextProvider } from './HotKeyContext';
 import useKeyboardNavigation from '../hooks/useKeyboardNavigation';
 
@@ -17,9 +17,12 @@ function MenuBarContextProvider({containerRef, config, children}: MenuBarContext
   
   useKeyboardNavigation(containerRef, config.disabled);
   
+  const ConfigContextProvider = createConfigContextProvider(config);
+  const ActiveStateContextProvider = createActiveStateContextProvider(containerRef);
+  
   return aggregateComponents([
-    ConfigContextProvider(config),
-    ActiveStateContextProvider(containerRef),
+    ConfigContextProvider,
+    ActiveStateContextProvider,
     HotKeyContextProvider,
     children,
   ]);

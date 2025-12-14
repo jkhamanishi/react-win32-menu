@@ -13,7 +13,7 @@ export interface MenuBarConfig {
 
 const [ContextProvider, useContext] = createContext<MenuBarConfig>("ConfigContext");
 
-export function ConfigContextProvider(config: MenuBarConfig) {
+export function createConfigContextProvider(config: MenuBarConfig) {
   
   return ({children}: {children: ReactNode}) => {
     return createElement(ContextProvider, { value: config }, children);

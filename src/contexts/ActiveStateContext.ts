@@ -12,7 +12,7 @@ export interface ActiveMenuState {
 
 const [ContextProvider, useContext] = createContext<ActiveMenuState>("ActiveStateContext");
 
-export function ActiveStateContextProvider(containerRef: RefObject<HTMLUListElement>) {
+export function createActiveStateContextProvider(containerRef: RefObject<HTMLUListElement>) {
   return ({children}: {children: ReactNode}) => {
     
     const { keepActive } = useMenuBarConfig();
