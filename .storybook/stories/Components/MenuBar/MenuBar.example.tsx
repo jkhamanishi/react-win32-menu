@@ -17,6 +17,7 @@ function ExampleMenuBar(props: Win32MenuBarProps) {
             <MenuItem label='Restore Zoom Default' hotKey={Keys.Ctrl('0')} onSelect={action('Restore Zoom')} />
           </SubMenu>
         </RootMenu>
+        <MenuItem isRootItem label='Help' onSelect={action('Help')} />
       </Win32MenuBar>
     </div>
   );

@@ -76,6 +76,12 @@ const meta = {
       type: 'HotKey',
       control: 'object',
     },
+    isRootItem: {
+      description: 'Indicates if the menu item is a root item. To be only used if the `MenuItem` is a direct child of `Win32MenuBar`.',
+      type: 'boolean',
+      control: 'boolean',
+      defaultValue: false,
+    },
   }),
 } satisfies Meta<typeof ExampleMenu>;
 

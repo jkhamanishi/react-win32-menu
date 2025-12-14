@@ -23,6 +23,7 @@ export interface MenuItemProps {
   onSelect?: EventCallback;
   keepOpenOnSelect?: boolean;
   hotKey?: HotKey;
+  isRootItem?: boolean;
 }
 
 export function MenuItem({
@@ -36,6 +37,7 @@ export function MenuItem({
   disabled = false,
   checked,
   keepOpenOnSelect = false,
+  isRootItem: isRootMenu = false,
 }: MenuItemProps) {
   const menuBar = useMenuBarContext();
   const ref = useRef<HTMLLIElement>(null) as RefObject<HTMLLIElement>;
@@ -84,7 +86,7 @@ export function MenuItem({
       'aria-label': label,
       onKeyDown,
     }}>
-      <MenuItemLabel {...{focused, label, icon, checked, hotKey, focusKey, onClick}} />
+      <MenuItemLabel {...{focused, label, icon, checked, hotKey, focusKey, onClick, isRootMenu}} />
     </li>
   );
 }
