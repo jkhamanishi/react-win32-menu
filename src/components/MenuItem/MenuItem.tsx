@@ -10,6 +10,7 @@ import useHotKey from '../../hooks/useHotKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
 import useMenuStyle from '../../hooks/useMenuStyle';
+import useAccessKey from '../../hooks/useAccessKey';
 
 
 export interface MenuItemProps {
@@ -67,6 +68,8 @@ export function MenuItem({
   const onKeyDown: KeyboardEventHandler = (e) => {
     if (!disabled && e.key === "Enter") selectMenu(e.nativeEvent);
   };
+  
+  useAccessKey(ref, accessKey, onSelect);
   
   const style = useMenuStyle({
     display: show ? 'grid' : 'none',

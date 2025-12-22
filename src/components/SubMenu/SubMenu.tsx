@@ -5,6 +5,7 @@ import { Menu } from '../Menu';
 import { MenuItemLabel } from '../MenuItemLabel';
 
 import useHotKey from '../../hooks/useHotKey';
+import useAccessKey from '../../hooks/useAccessKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
 import useMenuStyle from '../../hooks/useMenuStyle';
@@ -34,6 +35,7 @@ export function SubMenu({
   
   useMenuHover(ref, children);
   useHotKey(disabled);
+  useAccessKey(ref, accessKey, null);
   const focused = useFocused(ref);
   const focusedWithin = useFocusWithin(ref);
   const hovered = useHover(ref);

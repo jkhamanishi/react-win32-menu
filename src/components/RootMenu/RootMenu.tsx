@@ -1,14 +1,15 @@
 import { MouseEventHandler, ReactNode, RefObject, useCallback, useEffect, useRef } from 'react';
+import { useDebounceValue, useHover } from 'usehooks-ts';
 
 import { Menu } from '../Menu';
 import { MenuItemLabel } from '../MenuItemLabel';
 import { useMenuBarContext } from '../../contexts/MenuBarContext';
 
 import useHotKey from '../../hooks/useHotKey';
+import useAccessKey from '../../hooks/useAccessKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
 import useMenuStyle from '../../hooks/useMenuStyle';
-import { useDebounceValue, useHover } from 'usehooks-ts';
 
 
 export interface RootMenuProps {
@@ -35,6 +36,7 @@ export function RootMenu({
   
   useMenuHover(ref, children);
   useHotKey(disabled);
+  useAccessKey(ref, accessKey, null);
   const focusedWithin = useFocusWithin(ref);
   const hovered = useHover(ref);
   const showMenu = keepOpen || (focusedWithin && menuBar.active);
