@@ -1,4 +1,5 @@
-import { ReactNode, RefObject, useRef } from 'react';
+import { KeyboardEventHandler, ReactNode, RefObject, useRef } from 'react';
+import { useHover } from 'usehooks-ts';
 
 import { Menu } from '../Menu';
 import { MenuItemLabel } from '../MenuItemLabel';
@@ -7,8 +8,9 @@ import useHotKey from '../../hooks/useHotKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
 import useMenuStyle from '../../hooks/useMenuStyle';
-import { useHover } from 'usehooks-ts';
 import useFocused from '../../hooks/useFocused';
+
+import { firstChildMenu } from '../../utils/menuTraversal';
 
 
 export interface SubMenuProps {
@@ -38,6 +40,13 @@ export function SubMenu({
   const childrenFocused = focusedWithin && !focused;
   const showMenu = hovered || childrenFocused;
   
+  const onKeyDown: KeyboardEventHandler = (e) => {
+    if (!disabled && e.key === "Enter") {
+      const childMenu = firstChildMenu(ref.current) as HTMLLIElement;
+      childMenu?.focus();
+    }
+  };
+  
   const style = useMenuStyle({
     display: show ? 'grid' : 'none',
     gridColumn: 'span 3',
@@ -54,6 +63,7 @@ export function SubMenu({
       role: 'menuitem',
       'aria-disabled': disabled,
       'aria-label': label,
+      onKeyDown,
     }}>
       <MenuItemLabel isSubMenu {...{focused: focusedWithin, label, icon}} />
       {!disabled && (
