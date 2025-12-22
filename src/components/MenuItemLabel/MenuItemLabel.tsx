@@ -2,13 +2,14 @@ import { MouseEventHandler, ReactNode } from "react";
 import { useMenuBarContext } from "../../contexts/MenuBarContext";
 import { HotKeyHint, HotKeyHintProps } from "../HotKeyHint";
 import { cssVar, useMenuStyle } from "../../hooks/useMenuStyle";
+import { AccessKeyHint } from "../AccessKeyHint";
 
 
 export interface MenuItemLabelProps extends HotKeyHintProps {
   label: string;
   focused: boolean;
   disabled?: boolean;
-  focusKey?: string;
+  accessKey?: string;
   icon?: ReactNode;
   checked?: boolean;
   isRootMenu?: boolean;
@@ -20,7 +21,7 @@ export function MenuItemLabel({
   label,
   focused,
   disabled=false,
-  focusKey,
+  accessKey,
   icon,
   checked,
   hotKey,
@@ -79,10 +80,6 @@ export function MenuItemLabel({
     ...rootIconStyle,
   });
   
-  const labelStyle = useMenuStyle({
-    width: 'max-content',
-  });
-  
   return (
     <div style={containerStyle} onClick={onClick}>
       {(icon || !isRootMenu) && (
@@ -90,17 +87,7 @@ export function MenuItemLabel({
           {checked ? checkedIcon : icon}
         </span>
       )}
-      {focusKey && label.includes(focusKey) ? (
-        <span style={labelStyle}>
-          {label.substring(0, label.indexOf(focusKey))}
-          <u>{focusKey}</u>
-          {label.substring(label.indexOf(focusKey) + 1)}
-        </span>
-      ) : (
-        <span style={labelStyle}>
-          {label}
-        </span>
-      )}
+      <AccessKeyHint {...{label, accessKey}} />
       <HotKeyHint hotKey={hotKey} />
       {isSubMenu && (
         <span style={iconStyle}>

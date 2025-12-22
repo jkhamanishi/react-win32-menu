@@ -18,14 +18,14 @@ export interface SubMenuProps {
   show?: boolean;
   disabled?: boolean;
   icon?: ReactNode;
-  focusKey?: string;
+  accessKey?: string;
   children: ReactNode;
 }
 
 export function SubMenu({
   label,
   icon,
-  focusKey,
+  accessKey,
   show = true,
   disabled = false,
   children,
@@ -33,7 +33,7 @@ export function SubMenu({
   const ref = useRef<HTMLLIElement>(null) as RefObject<HTMLLIElement>;
   
   useMenuHover(ref, children);
-  useHotKey(ref, disabled, focusKey);
+  useHotKey(disabled);
   const focused = useFocused(ref);
   const focusedWithin = useFocusWithin(ref);
   const hovered = useHover(ref);
@@ -65,7 +65,7 @@ export function SubMenu({
       'aria-label': label,
       onKeyDown,
     }}>
-      <MenuItemLabel isSubMenu {...{focused: focusedWithin, label, icon}} />
+      <MenuItemLabel isSubMenu {...{focused: focusedWithin, label, accessKey, icon}} />
       {!disabled && (
         <Menu subMenu show={showMenu}>
           {children}

@@ -4,6 +4,7 @@ import aggregateComponents from './aggregateComponents';
 import { createConfigContextProvider, MenuBarConfig, useMenuBarConfig } from './ConfigContext';
 import { createActiveStateContextProvider, useActiveStateContext } from './ActiveStateContext';
 import { HotKeyContextProvider } from './HotKeyContext';
+import { AccessKeysContextProvider } from './AccessKeysContext';
 import useKeyboardNavigation from '../hooks/useKeyboardNavigation';
 
 
@@ -24,6 +25,7 @@ function MenuBarContextProvider({containerRef, config, children}: MenuBarContext
     ConfigContextProvider,
     ActiveStateContextProvider,
     HotKeyContextProvider,
+    AccessKeysContextProvider,
     children,
   ]);
 }

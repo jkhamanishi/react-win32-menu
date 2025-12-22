@@ -17,7 +17,7 @@ export interface MenuItemProps {
   show?: boolean;
   disabled?: boolean;
   icon?: ReactNode;
-  focusKey?: string;
+  accessKey?: string;
   menuId?: string;
   checked?: boolean;
   onSelect?: EventCallback;
@@ -32,7 +32,7 @@ export function MenuItem({
   label,
   icon,
   hotKey,
-  focusKey,
+  accessKey,
   show = true,
   disabled = false,
   checked,
@@ -43,7 +43,7 @@ export function MenuItem({
   const ref = useRef<HTMLLIElement>(null) as RefObject<HTMLLIElement>;
   
   useMenuHover(ref);
-  useHotKey(ref, disabled, focusKey, hotKey, menuId, onSelect);
+  useHotKey(disabled, hotKey, menuId, onSelect);
   const focused = useFocusWithin(ref);
   
   const selectMenu = (e: MouseEvent | KeyboardEvent) => {
@@ -86,7 +86,7 @@ export function MenuItem({
       'aria-label': label,
       onKeyDown,
     }}>
-      <MenuItemLabel {...{focused, label, icon, checked, hotKey, focusKey, onClick, isRootMenu}} />
+      <MenuItemLabel {...{focused, label, icon, checked, hotKey, accessKey, onClick, isRootMenu}} />
     </li>
   );
 }

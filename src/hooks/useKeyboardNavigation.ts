@@ -33,6 +33,7 @@ export default function useKeyboardNavigation(ref: RefObject<HTMLElement>, disab
     }
     
     (nextFocusElement as HTMLLIElement)?.focus();
+    event.preventDefault();
   }, [disabled]);
   
   useEventListener('keydown', handleKeyNavigation, ref);

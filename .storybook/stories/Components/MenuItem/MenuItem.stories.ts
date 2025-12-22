@@ -44,7 +44,7 @@ const meta = {
       type: 'ReactNode',
       control: false,
     },
-    focusKey: {
+    accessKey: {
       description: 'The key representing the menu item when in Alt-mode. The key will be underlined in the label.',
       type: 'string',
       control: 'text',
@@ -94,14 +94,14 @@ export const HotkeyExample: Story = {
     hotKey: Keys.CtrlShift('H'),
   },
   argTypes: {
-    focusKey: { table: { disable: true } },
+    accessKey: { table: { disable: true } },
   }
 };
 
-export const FocusKeyExample: Story = {
+export const AccessKeyExample: Story = {
   args: {
     label: 'Menu Item',
-    focusKey: 'n',
+    accessKey: 'n',
   },
   argTypes: {
     hotKey: { table: { disable: true } },
@@ -119,6 +119,6 @@ export const MenuIDExample: Story = {
     disabled: { table: { disable: true } },
     checked: { table: { disable: true } },
     hotKey: { table: { disable: true } },
-    focusKey: { table: { disable: true } },
+    accessKey: { table: { disable: true } },
   }
 };

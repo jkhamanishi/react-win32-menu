@@ -16,7 +16,7 @@ export interface RootMenuProps {
   show?: boolean;
   disabled?: boolean;
   icon?: ReactNode;
-  focusKey?: string;
+  accessKey?: string;
   children?: ReactNode;
   keepOpen?: boolean;
 }
@@ -24,7 +24,7 @@ export interface RootMenuProps {
 export function RootMenu({
   label,
   icon,
-  focusKey,
+  accessKey,
   show = true,
   disabled = false,
   children,
@@ -34,7 +34,7 @@ export function RootMenu({
   const ref = useRef<HTMLLIElement>(null) as RefObject<HTMLLIElement>;
   
   useMenuHover(ref, children);
-  useHotKey(ref, disabled, focusKey);
+  useHotKey(disabled);
   const focusedWithin = useFocusWithin(ref);
   const hovered = useHover(ref);
   const showMenu = keepOpen || (focusedWithin && menuBar.active);
@@ -70,7 +70,7 @@ export function RootMenu({
       'aria-disabled': disabled,
       'aria-label': label,
     }}>
-      <MenuItemLabel isRootMenu {...{focused, label, focusKey, icon, onClick}} />
+      <MenuItemLabel isRootMenu {...{focused, label, accessKey, icon, onClick}} />
       {children && !disabled && (
         <Menu show={showMenu}>
           {children}

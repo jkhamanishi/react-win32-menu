@@ -43,7 +43,7 @@ const meta = {
       type: 'ReactNode',
       control: false,
     },
-    focusKey: {
+    accessKey: {
       description: 'The key representing the menu when in Alt-mode. The key will be underlined in the label.',
       type: 'string',
       control: 'text',
