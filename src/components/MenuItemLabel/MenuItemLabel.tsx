@@ -23,7 +23,7 @@ export function MenuItemLabel({
   disabled=false,
   accessKey,
   icon,
-  checked,
+  checked=false,
   hotKey,
   isRootMenu=false,
   isSubMenu=false,
@@ -55,7 +55,7 @@ export function MenuItemLabel({
     whiteSpace: 'nowrap',
     position: 'relative',
     cursor: disabled ? 'default' : 'pointer',
-    padding: cssVar('--win32menubar-label-padding', '4px 6px'),
+    padding: cssVar('--win32menubar-label-padding', '4px 4px'),
     textAlign: cssVar('--win32menubar-label-text-align', 'left'),
     gap: cssVar('--win32menubar-label-icon-gap', '4px'),
     height: cssVar('--win32menubar-root-label-height', 'auto'),
@@ -71,14 +71,25 @@ export function MenuItemLabel({
     height: cssVar('--win32menubar-root-icon-size', '12px'),
     width: cssVar('--win32menubar-root-icon-size', '12px'),
   }, isRootMenu);
+  const checkMarkStyle = useMenuStyle({
+    background: cssVar('--win32menubar-checked-background-color', '#BBF'),
+  }, checked);
+  const checkMarkHoveredStyle = useMenuStyle({
+    background: cssVar('--win32menubar-checked-background-hover-color', '#99F'),
+  }, checked && isHovered);
   const iconStyle = useMenuStyle({
     display: 'flex',
     alignItems: 'center',
-    justifyItems: 'center',
+    justifyContent: 'center',
+    justifySelf: 'end',
     height: cssVar('--win32menubar-label-icon-size', '16px'),
     width: cssVar('--win32menubar-label-icon-size', '16px'),
+    padding: '2.2px',
+    margin: '-2px 0 -2px -2px',
+    ...checkMarkStyle,
+    ...checkMarkHoveredStyle,
     ...rootIconStyle,
-  });
+  }, [isHovered, checked]);
   
   return (
     <div style={containerStyle} onClick={onClick}>

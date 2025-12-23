@@ -31,6 +31,7 @@ function ExampleMenuBar(props: Win32MenuStyleProps) {
             <MenuItem label='Zoom Out' accessKey='O' onSelect={action('Zoom Out')} keepOpenOnSelect />
             <MenuItem label='Restore Zoom Default' hotKey={Keys.Ctrl('0')} accessKey='R' onSelect={action('Restore Zoom')} />
           </SubMenu>
+          <MenuItem label='Word Wrap' checked accessKey='W' onSelect={action('Word Wrap')} />
         </RootMenu>
         <RootMenu label='Help' accessKey='H'>
           <MenuItem label='View Help' hotKey={Keys.Ctrl('/')} accessKey='H' onSelect={action('View Help')} />

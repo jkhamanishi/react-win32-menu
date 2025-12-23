@@ -114,7 +114,7 @@ export default {
     },
     '--win32menubar-label-padding': {
       description: 'The content padding for the menu item labels.',
-      defaultValue: '4px 6px',
+      defaultValue: '4px 4px',
       control: 'text',
     },
     '--win32menubar-label-text-align': {
@@ -132,6 +132,16 @@ export default {
       description: 'The size of the menu item icon.',
       defaultValue: '16px',
       control: 'text',
+    },
+    '--win32menubar-checked-background-color': {
+      description: 'The background color of the check mark.',
+      defaultValue: '#BBF',
+      control: 'color',
+    },
+    '--win32menubar-checked-background-hover-color': {
+      description: 'The background color of the check mark when hovered or focused.',
+      defaultValue: '#99F',
+      control: 'color',
     },
     '--win32menubar-hotkey-font-size': {
       description: 'The font size of the hotkey hints.',
