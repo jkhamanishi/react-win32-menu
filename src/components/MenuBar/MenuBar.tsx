@@ -39,7 +39,7 @@ export function Win32MenuBar({
     hotKeysEnabled,
     disabled,
     keepActive,
-  }), [onSelect, expandIcon, checkedIcon, hotKeysEnabled, disabled]);
+  }), [onSelect, expandIcon, checkedIcon, hotKeysEnabled, disabled, keepActive]);
   
   const style = useMenuStyle({
     display: 'flex',
