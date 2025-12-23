@@ -13,7 +13,7 @@ export interface MenuBarConfig {
 
 export const defaultConfig: MenuBarConfig = {
   expandIcon: "❯",
-  checkedIcon: "✓",
+  checkedIcon: "✔",
   hotKeysEnabled: true,
   disabled: false,
   keepActive: false,
