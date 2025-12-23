@@ -27,8 +27,8 @@ function ExampleMenuBar(props: Win32MenuStyleProps) {
         </RootMenu>
         <RootMenu label='View' accessKey='V'>
           <SubMenu label='Zoom' accessKey='Z'>
-            <MenuItem label='Zoom In' accessKey='I' onSelect={action('Zoom In')} />
-            <MenuItem label='Zoom Out' accessKey='O' onSelect={action('Zoom Out')} />
+            <MenuItem label='Zoom In' accessKey='I' onSelect={action('Zoom In')} keepOpenOnSelect />
+            <MenuItem label='Zoom Out' accessKey='O' onSelect={action('Zoom Out')} keepOpenOnSelect />
             <MenuItem label='Restore Zoom Default' hotKey={Keys.Ctrl('0')} accessKey='R' onSelect={action('Restore Zoom')} />
           </SubMenu>
         </RootMenu>

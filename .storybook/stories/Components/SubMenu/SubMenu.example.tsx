@@ -7,8 +7,8 @@ function ExampleMenuBar(props: SubMenuProps) {
       <Win32MenuBar keepActive>
         <RootMenu label='View' keepOpen>
           <SubMenu {...props}>
-            <MenuItem label='Zoom In' onSelect={action('Zoom In')} />
-            <MenuItem label='Zoom Out' onSelect={action('Zoom Out')} />
+            <MenuItem label='Zoom In' onSelect={action('Zoom In')} keepOpenOnSelect />
+            <MenuItem label='Zoom Out' onSelect={action('Zoom Out')} keepOpenOnSelect />
             <MenuItem label='Restore Zoom Default' hotKey={Keys.Ctrl('0')} onSelect={action('Restore Zoom')} />
           </SubMenu>
         </RootMenu>
