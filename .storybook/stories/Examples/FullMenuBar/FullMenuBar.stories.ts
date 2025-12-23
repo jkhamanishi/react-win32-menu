@@ -136,6 +136,11 @@ export default {
       defaultValue: '16px',
       control: 'text',
     },
+    labelDisabledColor: {
+      description: 'The color of the menu item labels when disabled.',
+      defaultValue: '#888',
+      control: 'color',
+    },
     checkedBackgroundColor: {
       description: 'The background color of the check mark.',
       defaultValue: '#BBF',

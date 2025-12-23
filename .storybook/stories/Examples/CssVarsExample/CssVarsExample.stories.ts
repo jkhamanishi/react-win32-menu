@@ -133,6 +133,11 @@ export default {
       defaultValue: '16px',
       control: 'text',
     },
+    '--win32menubar-label-disabled-color': {
+      description: 'The color of the menu item labels when disabled.',
+      defaultValue: '#666',
+      control: 'color',
+    },
     '--win32menubar-checked-background-color': {
       description: 'The background color of the check mark.',
       defaultValue: '#BBF',

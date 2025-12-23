@@ -33,6 +33,10 @@ export function MenuItemLabel({
   
   const isHovered = (focused && !disabled);
   
+  const disabledStyle = useMenuStyle({
+    color: cssVar('--win32menubar-label-disabled-color', '#888'),
+    cursor: 'default',
+  }, disabled);
   const rootHoveredStyle = useMenuStyle({
     background: cssVar('--win32menubar-root-hover-background', '#DDF'),
     color: cssVar('--win32menubar-root-hover-color', '#000'),
@@ -54,7 +58,7 @@ export function MenuItemLabel({
     alignItems: 'center',
     whiteSpace: 'nowrap',
     position: 'relative',
-    cursor: disabled ? 'default' : 'pointer',
+    cursor: 'pointer',
     padding: cssVar('--win32menubar-label-padding', '4px 4px'),
     textAlign: cssVar('--win32menubar-label-text-align', 'left'),
     gap: cssVar('--win32menubar-label-icon-gap', '4px'),
@@ -65,7 +69,8 @@ export function MenuItemLabel({
   const containerStyle = useMenuStyle({
     ...baseContainerStyle,
     ...hoveredStyle,
-  }, [isHovered]);
+    ...disabledStyle,
+  }, [isHovered, disabled]);
   
   const rootIconStyle = useMenuStyle({
     height: cssVar('--win32menubar-root-icon-size', '12px'),

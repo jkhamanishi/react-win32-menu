@@ -30,6 +30,7 @@ interface MenuStyle {
   labelTextAlign: StyleProp<'label-text-align', CSS.Property.TextAlign>;
   labelIconGap: StyleProp<'label-icon-gap', CSS.Property.Gap>;
   labelIconSize: StyleProp<'label-icon-size', CSS.Property.Height | CSS.Property.Width>;
+  labelDisabledColor: StyleProp<'label-disabled-color', CSS.Property.Color>;
   checkedBackgroundColor: StyleProp<'checked-background-color', CSS.Property.Color>;
   checkedBackgroundHoverColor: StyleProp<'checked-background-hover-color', CSS.Property.Color>;
   hotkeyFontSize: StyleProp<'hotkey-font-size', CSS.Property.FontSize>;

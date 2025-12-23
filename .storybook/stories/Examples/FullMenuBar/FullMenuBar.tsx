@@ -13,7 +13,7 @@ function ExampleMenuBar(props: Win32MenuStyleProps) {
           <Separator />
           <MenuItem label='Print...' hotKey={Keys.Ctrl('P')} accessKey='P' onSelect={action('Print')} />
           <Separator />
-          <MenuItem label='Exit' accessKey='E' onSelect={action('Exit')} />
+          <MenuItem label='Exit' accessKey='E' onSelect={action('Exit')} disabled />
         </RootMenu>
         <RootMenu label='Edit' accessKey='E'>
           <MenuItem label='Undo' hotKey={Keys.Ctrl('Z')} accessKey='U' onSelect={action('Undo')} />

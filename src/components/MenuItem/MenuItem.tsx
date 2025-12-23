@@ -89,7 +89,7 @@ export function MenuItem({
       'aria-label': label,
       onKeyDown,
     }}>
-      <MenuItemLabel {...{focused, label, icon, checked, hotKey, accessKey, onClick, isRootMenu}} />
+      <MenuItemLabel {...{focused, label, icon, checked, hotKey, accessKey, onClick, isRootMenu, disabled}} />
     </li>
   );
 }
