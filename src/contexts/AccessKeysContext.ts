@@ -18,7 +18,7 @@ const [ContextProvider, useContext] = createContext<AccessKeysContextType>("Acce
 export function AccessKeysContextProvider({children}: {children: ReactNode}) {
   const menubar = useMenuBarContext();
   const [altDown, setAltDown] = useState(false);
-  const { value: active, setTrue, setFalse, toggle } = useBoolean(false);
+  const { value: active, setTrue, setFalse } = useBoolean(false);
   
   const activate = menubar.hotKeysEnabled ? setTrue : (()=>{});
   const deactivate = setFalse;
@@ -29,6 +29,7 @@ export function AccessKeysContextProvider({children}: {children: ReactNode}) {
   
   useEventListener("keydown", (e: KeyboardEvent) => {
     if (e.key === "Alt" && !altDown) {
+      const toggle = !active ? activate : deactivate;
       toggle();
       setAltDown(true);
       e.preventDefault();
