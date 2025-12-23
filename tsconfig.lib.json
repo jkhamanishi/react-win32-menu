@@ -27,5 +27,5 @@
       "react-win32-menu": ["./src"],
     },
   },
-  "include": ["src", ".storybook/stories"]
+  "include": ["src", ".storybook/stories", "test/setupTests.ts"]
 }
