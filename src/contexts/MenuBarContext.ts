@@ -1,7 +1,7 @@
 import { ReactNode, RefObject } from 'react';
 import aggregateComponents from './aggregateComponents';
 
-import { createConfigContextProvider, MenuBarConfig, useMenuBarConfig } from './ConfigContext';
+import { createConfigContextProvider, defaultConfig, MenuBarConfig, useMenuBarConfig } from './ConfigContext';
 import { createActiveStateContextProvider, useActiveStateContext } from './ActiveStateContext';
 import { HotKeyContextProvider } from './HotKeyContext';
 import { AccessKeysContextProvider } from './AccessKeysContext';
@@ -41,4 +41,5 @@ export {
   MenuBarContextProvider,
   useMenuBarContext,
   type MenuBarConfig,
+  defaultConfig,
 }
