@@ -1,14 +1,15 @@
 import { MouseEventHandler, ReactNode, RefObject, useCallback, useEffect, useRef } from 'react';
+import { useDebounceValue, useHover } from 'usehooks-ts';
 
 import { Menu } from '../Menu';
 import { MenuItemLabel } from '../MenuItemLabel';
 import { useMenuBarContext } from '../../contexts/MenuBarContext';
 
 import useHotKey from '../../hooks/useHotKey';
+import useAccessKey from '../../hooks/useAccessKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
 import useMenuStyle from '../../hooks/useMenuStyle';
-import { useDebounceValue, useHover } from 'usehooks-ts';
 
 
 export interface RootMenuProps {
@@ -16,7 +17,7 @@ export interface RootMenuProps {
   show?: boolean;
   disabled?: boolean;
   icon?: ReactNode;
-  focusKey?: string;
+  accessKey?: string;
   children?: ReactNode;
   keepOpen?: boolean;
 }
@@ -24,7 +25,7 @@ export interface RootMenuProps {
 export function RootMenu({
   label,
   icon,
-  focusKey,
+  accessKey,
   show = true,
   disabled = false,
   children,
@@ -34,7 +35,8 @@ export function RootMenu({
   const ref = useRef<HTMLLIElement>(null) as RefObject<HTMLLIElement>;
   
   useMenuHover(ref, children);
-  useHotKey(ref, disabled, focusKey);
+  useHotKey(disabled);
+  useAccessKey(ref, accessKey, null);
   const focusedWithin = useFocusWithin(ref);
   const hovered = useHover(ref);
   const showMenu = keepOpen || (focusedWithin && menuBar.active);
@@ -70,7 +72,7 @@ export function RootMenu({
       'aria-disabled': disabled,
       'aria-label': label,
     }}>
-      <MenuItemLabel isRootMenu {...{focused, label, focusKey, icon, onClick}} />
+      <MenuItemLabel isRootMenu {...{focused, label, accessKey, icon, onClick}} />
       {children && !disabled && (
         <Menu show={showMenu}>
           {children}

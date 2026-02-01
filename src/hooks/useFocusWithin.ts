@@ -7,7 +7,7 @@ export default function useFocusWithin(ref: RefObject<HTMLElement>) {
   const [focusWithin, setFocusWithin] = useState(false);
   
   const checkFocusWithin = useCallback(() => {
-    setFocusWithin(ref.current.contains(document.activeElement));
+    setFocusWithin(ref.current?.contains(document.activeElement) ?? false);
   }, []);
   
   useEventListener('focusin', checkFocusWithin, ref);

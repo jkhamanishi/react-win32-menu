@@ -2,7 +2,7 @@ import { KeyboardEventHandler, MouseEventHandler, ReactNode, RefObject, useRef }
 
 import { MenuItemLabel } from '../MenuItemLabel';
 
-import { EventCallback } from '../../hooks/useHotKeyRegistration';
+import { EventCallback } from '../../contexts/HotKeyContext';
 import { useMenuBarContext } from '../../contexts/MenuBarContext';
 
 import { HotKey } from '../../utils/hotKeys';
@@ -10,6 +10,7 @@ import useHotKey from '../../hooks/useHotKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
 import useMenuStyle from '../../hooks/useMenuStyle';
+import useAccessKey from '../../hooks/useAccessKey';
 
 
 export interface MenuItemProps {
@@ -17,12 +18,13 @@ export interface MenuItemProps {
   show?: boolean;
   disabled?: boolean;
   icon?: ReactNode;
-  focusKey?: string;
+  accessKey?: string;
   menuId?: string;
   checked?: boolean;
   onSelect?: EventCallback;
   keepOpenOnSelect?: boolean;
   hotKey?: HotKey;
+  isRootItem?: boolean;
 }
 
 export function MenuItem({
@@ -31,17 +33,18 @@ export function MenuItem({
   label,
   icon,
   hotKey,
-  focusKey,
+  accessKey,
   show = true,
   disabled = false,
   checked,
   keepOpenOnSelect = false,
+  isRootItem: isRootMenu = false,
 }: MenuItemProps) {
   const menuBar = useMenuBarContext();
   const ref = useRef<HTMLLIElement>(null) as RefObject<HTMLLIElement>;
   
   useMenuHover(ref);
-  useHotKey(ref, disabled, focusKey, hotKey, menuId, onSelect);
+  useHotKey(disabled, hotKey, menuId, onSelect);
   const focused = useFocusWithin(ref);
   
   const selectMenu = (e: MouseEvent | KeyboardEvent) => {
@@ -66,6 +69,8 @@ export function MenuItem({
     if (!disabled && e.key === "Enter") selectMenu(e.nativeEvent);
   };
   
+  useAccessKey(ref, accessKey, onSelect);
+  
   const style = useMenuStyle({
     display: show ? 'grid' : 'none',
     gridColumn: 'span 3',
@@ -84,7 +89,7 @@ export function MenuItem({
       'aria-label': label,
       onKeyDown,
     }}>
-      <MenuItemLabel {...{focused, label, icon, checked, hotKey, focusKey, onClick}} />
+      <MenuItemLabel {...{focused, label, icon, checked, hotKey, accessKey, onClick, isRootMenu, disabled}} />
     </li>
   );
 }

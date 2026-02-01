@@ -12,11 +12,12 @@ function ExampleMenuBar(props: Win32MenuBarProps) {
         <RootMenu label='View' keepOpen={keepOpen}>
           <MenuItem label='Keep Open' onSelect={toggle} checked={keepOpen} />
           <SubMenu label='Zoom'>
-            <MenuItem label='Zoom In' onSelect={action('Zoom In')} />
-            <MenuItem label='Zoom Out' onSelect={action('Zoom Out')} />
+            <MenuItem label='Zoom In' onSelect={action('Zoom In')} keepOpenOnSelect />
+            <MenuItem label='Zoom Out' onSelect={action('Zoom Out')} keepOpenOnSelect />
             <MenuItem label='Restore Zoom Default' hotKey={Keys.Ctrl('0')} onSelect={action('Restore Zoom')} />
           </SubMenu>
         </RootMenu>
+        <MenuItem isRootItem label='Help' onSelect={action('Help')} />
       </Win32MenuBar>
     </div>
   );

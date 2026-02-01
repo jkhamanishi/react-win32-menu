@@ -1,38 +1,31 @@
-import { RefObject, useEffect } from "react";
+import { useEffect } from "react";
 import { useMenuBarContext } from "../contexts/MenuBarContext";
-import { HotKey, Keys } from "../utils/hotKeys";
-import { EventCallback } from "./useHotKeyRegistration";
+import { HotKey } from "../utils/hotKeys";
+import { EventCallback, useHotKeyRegistration } from "../contexts/HotKeyContext";
 
 export default function useHotKey(
-  ref: RefObject<HTMLLIElement>,
   disabled = false,
-  focusKey?: string,
   hotKey?: HotKey,
   menuId?: string,
   onSelect?: EventCallback,
 ) {
   const menuBar = useMenuBarContext();
+  const hotKeyRegistration = useHotKeyRegistration();
   const hotKeysEnabled = menuBar.hotKeysEnabled && !disabled;
   
   useEffect(function register() {
     if (!hotKeysEnabled) return;
     
     if (hotKey && onSelect) {
-      menuBar.registerHotKey(hotKey, onSelect);
+      hotKeyRegistration.registerHotKey(hotKey, onSelect);
     }
     if (hotKey && !onSelect && menuId) {
-      menuBar.registerHotKey(hotKey, () => menuBar.onSelect?.(menuId));
-    }
-    if (focusKey) {
-      menuBar.registerHotKey(Keys.Alt(focusKey), () => ref.current?.focus());
+      hotKeyRegistration.registerHotKey(hotKey, () => menuBar.onSelect?.(menuId));
     }
     return function unRegister() {
       if (hotKey) {
-        menuBar.unregisterHotKey(hotKey);
-      }
-      if (focusKey) {
-        menuBar.unregisterHotKey(Keys.Alt(focusKey));
+        hotKeyRegistration.unregisterHotKey(hotKey);
       }
     };
-  }, [hotKeysEnabled, hotKey, focusKey, menuId, onSelect]);
+  }, [hotKeysEnabled, hotKey, menuId, onSelect]);
 }

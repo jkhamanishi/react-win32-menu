@@ -1,6 +1,8 @@
-import { useCallback, useState } from "react";
+import { createElement, ReactNode, useCallback, useState } from "react";
 import { useEventListener } from "usehooks-ts";
 import { HotKey, keyWithModifiers, normalizeKey } from "../utils/hotKeys";
+import { useMenuBarConfig } from "./ConfigContext";
+import createContext from "./createContext";
 
 
 export type EventCallback = (e?: Event) => void;
@@ -10,7 +12,11 @@ export interface HotKeyRegistration {
   unregisterHotKey: (hotKey: HotKey) => void;
 }
 
-export default function useHotKeyRegistration(enabled=true): HotKeyRegistration {
+const [ContextProvider, useContext] = createContext<HotKeyRegistration>("HotKeyContext");
+
+export function HotKeyContextProvider({children}: {children: ReactNode}) {
+  const { hotKeysEnabled, disabled } = useMenuBarConfig();
+  const enabled = (hotKeysEnabled && !disabled);
   const [callbacks] = useState<Record<string, EventCallback>>({});
   
   const hotKeyHandler = useCallback((keyboardEvent: KeyboardEvent): void => {
@@ -27,8 +33,6 @@ export default function useHotKeyRegistration(enabled=true): HotKeyRegistration 
       }
     }
   }, [enabled, callbacks]);
-  
-  useEventListener('keydown', hotKeyHandler);
   
   const registerHotKey = useCallback((hotkey: HotKey, callback: EventCallback): void => {
     const key = normalizeKey(hotkey);
@@ -47,5 +51,16 @@ export default function useHotKeyRegistration(enabled=true): HotKeyRegistration 
     }
   }, [callbacks]);
   
-  return { registerHotKey, unregisterHotKey };
+  
+  useEventListener('keydown', hotKeyHandler);
+  
+  const value: HotKeyRegistration = {
+    registerHotKey, unregisterHotKey
+  };
+  
+  return createElement(ContextProvider, {value}, children);
+}
+
+export function useHotKeyRegistration() {
+  return useContext();
 }

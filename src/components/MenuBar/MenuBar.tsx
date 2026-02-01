@@ -1,5 +1,5 @@
 import { CSSProperties, ReactNode, RefObject, useMemo, useRef } from 'react';
-import { MenuBarConfig, MenuBarContextProvider } from '../../contexts/MenuBarContext';
+import { defaultConfig as Default, MenuBarConfig, MenuBarContextProvider } from '../../contexts/MenuBarContext';
 import { cssVar, CustomStyleVars, useMenuStyle } from '../../hooks/useMenuStyle';
 import { CustomStyleProps, stylePropsToVars } from '../../utils/menuStyle';
 
@@ -20,11 +20,11 @@ export interface Win32MenuBarProps extends Partial<MenuBarConfig> {
  */
 export function Win32MenuBar({
   onSelect, 
-  expandIcon = "❯", 
-  checkedIcon = "✔", 
-  hotKeysEnabled = true, 
-  disabled = false,
-  keepActive = false,
+  expandIcon = Default.expandIcon,
+  checkedIcon = Default.checkedIcon,
+  hotKeysEnabled = Default.hotKeysEnabled,
+  disabled = Default.disabled,
+  keepActive = Default.keepActive,
   className, 
   style: styleProps,
   styleOverride,
@@ -39,7 +39,7 @@ export function Win32MenuBar({
     hotKeysEnabled,
     disabled,
     keepActive,
-  }), [onSelect, expandIcon, checkedIcon, hotKeysEnabled, disabled]);
+  }), [onSelect, expandIcon, checkedIcon, hotKeysEnabled, disabled, keepActive]);
   
   const style = useMenuStyle({
     display: 'flex',

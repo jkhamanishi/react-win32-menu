@@ -117,7 +117,7 @@ export default {
     },
     labelPadding: {
       description: 'The content padding for the menu item labels.',
-      defaultValue: '4px 6px',
+      defaultValue: '4px 4px',
       control: 'text',
     },
     labelTextAlign: {
@@ -135,6 +135,21 @@ export default {
       description: 'The size of the menu item icon.',
       defaultValue: '16px',
       control: 'text',
+    },
+    labelDisabledColor: {
+      description: 'The color of the menu item labels when disabled.',
+      defaultValue: '#888',
+      control: 'color',
+    },
+    checkedBackgroundColor: {
+      description: 'The background color of the check mark.',
+      defaultValue: '#BBF',
+      control: 'color',
+    },
+    checkedBackgroundHoverColor: {
+      description: 'The background color of the check mark when hovered or focused.',
+      defaultValue: '#99F',
+      control: 'color',
     },
     hotkeyFontSize: {
       description: 'The font size of the hotkey hints.',

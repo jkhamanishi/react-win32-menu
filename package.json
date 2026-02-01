@@ -1,6 +1,6 @@
 {
   "name": "react-win32-menu",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "React components resembling Win32 desktop menus",
   "license": "MIT",
   "author": {
@@ -13,7 +13,9 @@
     "test": "vitest run",
     "storybook": "storybook dev -p 6006 --ci",
     "build-storybook": "storybook build -o dist/storybook",
-    "tsc": "tsc -p ."
+    "tsc": "tsc -p ./tsconfig.lib.json",
+    "prepublishOnly": "npm run build && npm test",
+    "release": "npm publish"
   },
   "type": "module",
   "sideEffects": false,

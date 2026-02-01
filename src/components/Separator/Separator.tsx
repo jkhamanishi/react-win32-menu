@@ -3,7 +3,7 @@ import { cssVar } from "../../hooks/useMenuStyle";
 
 export function Separator() {
   return (
-    <div style={{
+    <div role="separator" style={{
       padding: cssVar('--win32menubar-label-padding', '4px 6px'),  // Only the horizontal padding is inherited.
       paddingTop: cssVar('--win32menubar-separator-padding', '2px'),
       paddingBottom: cssVar('--win32menubar-separator-padding', '2px'),

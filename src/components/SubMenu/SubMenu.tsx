@@ -1,14 +1,17 @@
-import { ReactNode, RefObject, useRef } from 'react';
+import { KeyboardEventHandler, ReactNode, RefObject, useRef } from 'react';
+import { useHover } from 'usehooks-ts';
 
 import { Menu } from '../Menu';
 import { MenuItemLabel } from '../MenuItemLabel';
 
 import useHotKey from '../../hooks/useHotKey';
+import useAccessKey from '../../hooks/useAccessKey';
 import useMenuHover from '../../hooks/useMenuHover';
 import useFocusWithin from '../../hooks/useFocusWithin';
 import useMenuStyle from '../../hooks/useMenuStyle';
-import { useHover } from 'usehooks-ts';
 import useFocused from '../../hooks/useFocused';
+
+import { firstChildMenu } from '../../utils/menuTraversal';
 
 
 export interface SubMenuProps {
@@ -16,14 +19,14 @@ export interface SubMenuProps {
   show?: boolean;
   disabled?: boolean;
   icon?: ReactNode;
-  focusKey?: string;
+  accessKey?: string;
   children: ReactNode;
 }
 
 export function SubMenu({
   label,
   icon,
-  focusKey,
+  accessKey,
   show = true,
   disabled = false,
   children,
@@ -31,12 +34,20 @@ export function SubMenu({
   const ref = useRef<HTMLLIElement>(null) as RefObject<HTMLLIElement>;
   
   useMenuHover(ref, children);
-  useHotKey(ref, disabled, focusKey);
+  useHotKey(disabled);
+  useAccessKey(ref, accessKey, null);
   const focused = useFocused(ref);
   const focusedWithin = useFocusWithin(ref);
   const hovered = useHover(ref);
   const childrenFocused = focusedWithin && !focused;
   const showMenu = hovered || childrenFocused;
+  
+  const onKeyDown: KeyboardEventHandler = (e) => {
+    if (!disabled && e.key === "Enter") {
+      const childMenu = firstChildMenu(ref.current) as HTMLLIElement;
+      childMenu?.focus();
+    }
+  };
   
   const style = useMenuStyle({
     display: show ? 'grid' : 'none',
@@ -54,8 +65,9 @@ export function SubMenu({
       role: 'menuitem',
       'aria-disabled': disabled,
       'aria-label': label,
+      onKeyDown,
     }}>
-      <MenuItemLabel isSubMenu {...{focused: focusedWithin, label, icon}} />
+      <MenuItemLabel isSubMenu {...{focused: focusedWithin, label, accessKey, icon}} />
       {!disabled && (
         <Menu subMenu show={showMenu}>
           {children}
